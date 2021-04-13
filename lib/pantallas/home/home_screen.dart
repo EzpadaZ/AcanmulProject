@@ -1,19 +1,27 @@
+import 'package:acanmul_app/backend/APIService.dart';
 import 'package:flutter/material.dart';
-import '../../backend/APIService.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
-    AuthService auth = AuthService();
+    return Container(
+      child: Text('Home Screen'),
+    );
+  }
 
-    if (auth.isLoggedIn()) {
-      // si es verdad (y validamos el token de la api, no hacemos nada)
-    } else {
-      // retorno al login
-      Navigator.pushReplacementNamed(context,
-          '/auth/login'); // <- pushReplacedNamed es para especificar una ruta sin retorno (para que no haya back pues xD)
-    }
-
-    return Container();
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      if (!authService.isLoggedIn())
+        Navigator.pushReplacementNamed(context, '/auth/login');
+    });
   }
 }
