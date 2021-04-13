@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../backend/APIService.dart';
 import '../../../componentes/reusable_card.dart';
-import '../../../componentes/round_icon_button.dart';
+import '../../../componentes/constants.dart';
 
 class LoginWindow extends StatefulWidget {
   @override
@@ -9,12 +9,6 @@ class LoginWindow extends StatefulWidget {
 }
 
 class _LoginWindowState extends State<LoginWindow> {
-  @override
-  void initState() {
-    super.initState();
-    AuthService authService = AuthService();
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,10 +18,10 @@ class _LoginWindowState extends State<LoginWindow> {
       child: Column(
         children: [
           SizedBox(
-            height: size.height * 0.125,
+            height: size.height * 0.200,
           ),
           ReusableCard(
-            color: Colors.grey.shade300,
+            color: kGreyColor,
             cardChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -35,15 +29,10 @@ class _LoginWindowState extends State<LoginWindow> {
                   height: size.height * 0.03,
                 ),
                 Container(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 40.0),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 36,
-                          color: Colors.black87),
-                      textAlign: TextAlign.left,
+                    child: Image(
+                      image: AssetImage('images/logo.png'),
                     )),
                 SizedBox(
                   height: size.height * 0.03,
@@ -70,17 +59,38 @@ class _LoginWindowState extends State<LoginWindow> {
                   height: size.height * 0.03,
                 ),
                 Container(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: size.width * 0.525,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: kLightAccentColor),
+                        onPressed: () {
+                          // nada aun
+                          print('loginBtn');
+                        },
+                        child: Text('Iniciar Sesion'),
+                      ),
+                    )),
+                Container(
                   alignment: Alignment.center,
-                  child: RoundIconButton(
-                    labelTxt: "Iniciar Sesion",
-                    onpress: () => {
-                      // nada aun.
+                  child: GestureDetector(
+                    onTap: () {
+                      // funcion de ir a registro.
+                      print('RegisterBtn');
                     },
+                    child: Text(
+                      'No tienes cuenta? Registrate!',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: kDarkAccentColor),
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: size.height * 0.03,
-                )
+                ),
               ],
             ),
           ),
