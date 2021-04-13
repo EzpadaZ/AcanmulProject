@@ -18,32 +18,33 @@ class _LoginWindowState extends State<LoginWindow> {
       child: Column(
         children: [
           SizedBox(
-            height: size.height * 0.200,
+            height: size.height * 0.11,
           ),
           ReusableCard(
-            color: kGreyColor,
+            color: kPrimaryAccentColor,
             cardChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: size.height * 0.03,
-                ),
-                Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 40.0),
-                    child: Image(
-                      image: AssetImage('images/logo.png'),
-                    )),
-                SizedBox(
-                  height: size.height * 0.03,
+                  height: size.height * 0.05,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 40),
-                  child: TextField(
-                    decoration: InputDecoration(labelText: "E-Mail"),
+                  padding: EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Image(
+                    image: AssetImage('images/logo.png'),
+                    width: 200,
                   ),
                 ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                      decoration: InputDecoration(
+                    labelText: "E-Mail",
+                    labelStyle: TextStyle(color: kTextIconColor),
+                  )),
+                ),
                 SizedBox(
                   height: size.height * 0.03,
                 ),
@@ -51,20 +52,21 @@ class _LoginWindowState extends State<LoginWindow> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
-                    decoration: InputDecoration(labelText: "Password"),
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        labelStyle: TextStyle(color: kTextIconColor)),
                     obscureText: true,
                   ),
                 ),
                 SizedBox(
-                  height: size.height * 0.03,
+                  height: size.height * 0.05,
                 ),
                 Container(
                     alignment: Alignment.center,
                     child: SizedBox(
                       width: size.width * 0.525,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: kLightAccentColor),
+                        style: ElevatedButton.styleFrom(primary: kAccentColor),
                         onPressed: () {
                           // nada aun
                           print('loginBtn');
@@ -84,7 +86,7 @@ class _LoginWindowState extends State<LoginWindow> {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: kDarkAccentColor),
+                          color: kTextIconColor),
                     ),
                   ),
                 ),
