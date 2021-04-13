@@ -12,7 +12,7 @@ class AuthService {
 
   bool isLoggedIn() {
     if (debugMode) {
-      return false;
+      return false; // retornara true para saltarse el login, ahorita es false por que no tengo el login hecho xD
     } else {
       // Login process.
     }
