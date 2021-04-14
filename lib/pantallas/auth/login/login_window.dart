@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../componentes/reusable_card.dart';
 import '../../../componentes/constants.dart';
+import '../../../backend/APIService.dart';
 
 class LoginWindow extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class LoginWindow extends StatefulWidget {
 class _LoginWindowState extends State<LoginWindow> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  final AuthService authService =
+      AuthService(); // sisi, no se usa aun, pero pronto. :v quiza no en la master branch.
 
   @override
   Widget build(BuildContext context) {
