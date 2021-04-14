@@ -87,7 +87,7 @@ class _LoginWindowState extends State<LoginWindow> {
                   child: GestureDetector(
                     onTap: () {
                       // funcion de ir a registro.
-                      print('RegisterBtn');
+                      Navigator.pushNamed(context, '/auth/signup');
                     },
                     child: Text(
                       'No tienes cuenta? Registrate!',
