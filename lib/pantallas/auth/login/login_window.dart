@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../backend/APIService.dart';
 import '../../../componentes/reusable_card.dart';
 import '../../../componentes/constants.dart';
 
@@ -9,19 +8,22 @@ class LoginWindow extends StatefulWidget {
 }
 
 class _LoginWindowState extends State<LoginWindow> {
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
         body: SafeArea(
-      child: Column(
+      child: ListView(
         children: [
           SizedBox(
             height: size.height * 0.11,
           ),
           ReusableCard(
-            color: kPrimaryAccentColor,
+            color: kLightAccentColor,
             cardChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -40,10 +42,11 @@ class _LoginWindowState extends State<LoginWindow> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
+                      controller: emailTextController,
                       decoration: InputDecoration(
-                    labelText: "E-Mail",
-                    labelStyle: TextStyle(color: kTextIconColor),
-                  )),
+                        labelText: "E-Mail",
+                        labelStyle: TextStyle(color: kPrimaryTextColor),
+                      )),
                 ),
                 SizedBox(
                   height: size.height * 0.03,
@@ -52,9 +55,10 @@ class _LoginWindowState extends State<LoginWindow> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
+                    controller: passwordTextController,
                     decoration: InputDecoration(
                         labelText: "Password",
-                        labelStyle: TextStyle(color: kTextIconColor)),
+                        labelStyle: TextStyle(color: kPrimaryTextColor)),
                     obscureText: true,
                   ),
                 ),
@@ -66,7 +70,8 @@ class _LoginWindowState extends State<LoginWindow> {
                     child: SizedBox(
                       width: size.width * 0.525,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: kAccentColor),
+                        style:
+                            ElevatedButton.styleFrom(primary: kDarkAccentColor),
                         onPressed: () {
                           // nada aun
                           print('loginBtn');
@@ -86,7 +91,7 @@ class _LoginWindowState extends State<LoginWindow> {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: kTextIconColor),
+                          color: kPrimaryTextColor),
                     ),
                   ),
                 ),
