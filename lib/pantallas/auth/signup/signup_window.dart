@@ -2,13 +2,33 @@ import 'package:flutter/material.dart';
 import '../../../componentes/constants.dart';
 import '../../../componentes/reusable_card.dart';
 import '../../../backend/APIService.dart';
+import 'dart:convert';
 
 class SignUpWindow extends StatelessWidget {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final nameTextController = TextEditingController();
   final phoneTextController = TextEditingController();
-  final AuthService authService = AuthService();
+  var authService;
+
+  dynamic signup(BuildContext context) async {
+    authService = AuthService();
+    final res = await authService.register(
+        nameTextController.text,
+        emailTextController.text,
+        passwordTextController.text,
+        phoneTextController.text);
+
+    var data = jsonDecode(res) as Map<String, dynamic>;
+
+    if (data['status'] == 200) {
+      AuthService.setToken(data['token'], emailTextController.text);
+      Navigator.pushNamed(context, '/home');
+      return data;
+    } else {
+      // ALGO PASO, aun no hare el manejo de excepciones
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +117,7 @@ class SignUpWindow extends StatelessWidget {
                               primary: kDarkAccentColor),
                           onPressed: () {
                             // nada aun
-                            print('Aun no hace nada xddd');
+                            signup(context);
                           },
                           child: Text('Registrate!'),
                         ),

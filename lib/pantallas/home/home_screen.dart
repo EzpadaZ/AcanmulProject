@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Salir'),
               onTap: () {
                 AuthService.removeToken();
-                Navigator.popAndPushNamed(context, 'auth/login');
+                Navigator.popAndPushNamed(context, '/auth/login');
               },
             )
           ],
