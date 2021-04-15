@@ -9,10 +9,9 @@ class SignUpWindow extends StatelessWidget {
   final passwordTextController = TextEditingController();
   final nameTextController = TextEditingController();
   final phoneTextController = TextEditingController();
-  var authService;
 
   dynamic signup(BuildContext context) async {
-    authService = AuthService();
+    var authService = AuthService();
     final res = await authService.register(
         nameTextController.text,
         emailTextController.text,
