@@ -82,7 +82,7 @@ class SignUpWindow extends StatelessWidget {
                       decoration: InputDecoration(
                           labelText: "Telefono",
                           labelStyle: TextStyle(color: kPrimaryTextColor)),
-                      obscureText: true,
+                      obscureText: false,
                     ),
                   ),
                   SizedBox(

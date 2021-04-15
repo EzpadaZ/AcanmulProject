@@ -9,10 +9,30 @@ class LoginWindow extends StatefulWidget {
 }
 
 class _LoginWindowState extends State<LoginWindow> {
-  final emailTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
   final AuthService authService =
       AuthService(); // sisi, no se usa aun, pero pronto. :v quiza no en la master branch.
+
+  @override
+  void dispose() {
+    emailTextController = null;
+    passwordTextController = null;
+    super.dispose();
+  }
+
+  void login() async {
+    bool validated = await authService.login(
+        emailTextController.text, passwordTextController.text);
+
+    if (validated) {
+      SnackBar snackBar = SnackBar(content: Text('Login Exitoso!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Future.delayed(const Duration(seconds: 5), () {
+        Navigator.pushReplacementNamed(context, '/');
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +65,9 @@ class _LoginWindowState extends State<LoginWindow> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
+                      style: TextStyle(color: kPrimaryTextColor),
                       controller: emailTextController,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: "E-Mail",
                         labelStyle: TextStyle(color: kPrimaryTextColor),
@@ -58,7 +80,9 @@ class _LoginWindowState extends State<LoginWindow> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
+                    style: TextStyle(color: kPrimaryTextColor),
                     controller: passwordTextController,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(color: kPrimaryTextColor)),
@@ -77,7 +101,8 @@ class _LoginWindowState extends State<LoginWindow> {
                             ElevatedButton.styleFrom(primary: kDarkAccentColor),
                         onPressed: () {
                           // nada aun
-                          print('loginBtn');
+                          login();
+                          print(emailTextController.text);
                         },
                         child: Text('Iniciar Sesion'),
                       ),
