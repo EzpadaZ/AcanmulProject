@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../componentes/reusable_card.dart';
 import '../../../componentes/constants.dart';
 import '../../../backend/APIService.dart';
+import 'dart:convert';
 
 class LoginWindow extends StatefulWidget {
   @override
@@ -14,24 +15,28 @@ class _LoginWindowState extends State<LoginWindow> {
   final AuthService authService =
       AuthService(); // sisi, no se usa aun, pero pronto. :v quiza no en la master branch.
 
+  var authInfo;
+
+  dynamic login(BuildContext context) async {
+    authInfo = AuthService();
+
+    final res = await authInfo.login(
+        emailTextController.text, passwordTextController.text);
+
+    var data = jsonDecode(res) as Map<String, dynamic>;
+
+    if (data['status'] == 200) {
+      AuthService.setToken(data['token'], emailTextController.text);
+      Navigator.pushNamed(context, '/home');
+      return data;
+    }
+  }
+
   @override
   void dispose() {
     emailTextController = null;
     passwordTextController = null;
     super.dispose();
-  }
-
-  void login() async {
-    bool validated = await authService.login(
-        emailTextController.text, passwordTextController.text);
-
-    if (validated) {
-      SnackBar snackBar = SnackBar(content: Text('Login Exitoso!'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      Future.delayed(const Duration(seconds: 5), () {
-        Navigator.pushReplacementNamed(context, '/');
-      });
-    }
   }
 
   @override
@@ -101,8 +106,8 @@ class _LoginWindowState extends State<LoginWindow> {
                             ElevatedButton.styleFrom(primary: kDarkAccentColor),
                         onPressed: () {
                           // nada aun
-                          login();
-                          print(emailTextController.text);
+                          //
+                          login(context);
                         },
                         child: Text('Iniciar Sesion'),
                       ),

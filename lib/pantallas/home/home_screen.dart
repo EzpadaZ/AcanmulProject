@@ -11,17 +11,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Home Screen'),
+    return Scaffold(
+      appBar: AppBar(title: Text('Home Screen')),
+      body: SafeArea(
+        child: Column(
+          children: [
+            GestureDetector(
+              child: Text('Salir'),
+              onTap: () {
+                AuthService.removeToken();
+                Navigator.popAndPushNamed(context, 'auth/login');
+              },
+            )
+          ],
+        ),
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      if (!authService.isLoggedIn())
-        Navigator.pushReplacementNamed(context, '/auth/login');
-    });
   }
 }
