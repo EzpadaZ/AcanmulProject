@@ -10,6 +10,14 @@ He dividido el contenido de /lib en 3 secciones (que se explican en el curso de 
 
 ./pantallas <- su nombre lo dice.
 
+# Lista de cosas pendientes.
+-   Pantalla de Login y Registro [DONE]
+-   Interaccion con Login y Registro (backend https://github.com/JorgeEspadas/AcanmulBackend) [DONE]
+-   Pantalla de Home [PENDING]
+-   Interaccion de Home -> Backend [PENDING]
+-   Pantallas extras (perfil, mis paquetes, paqutes custom) [TODO]
+-   Funcionalidad con backend de dichas pantallas [TODO]
+
 
 ## Getting Started
 
