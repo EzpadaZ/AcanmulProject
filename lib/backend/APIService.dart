@@ -1,5 +1,4 @@
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
@@ -7,10 +6,10 @@ import 'package:http/http.dart' as http;
 
 class AuthService {
   static final AuthService _authService = AuthService._internal();
-  bool amILoggedIn = false;
-  final String apiUrl = '192.168.1.159:5000';
-  final String authUrl = '192.168.1.159:5000';
-  final String basuraUrl = 'jsonplaceholder.typicode.com';
+  final String backendUrl =
+      '192.168.1.159:5000'; // cambia esto si necesitas apuntar a tu propia computadora.
+
+  // Este header es un header default. cuando estemos logueados usaremos otro header que contenga el Bearer token para auth en la api.
   final loginHeader = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -21,20 +20,19 @@ class AuthService {
   }
 
   AuthService._internal();
-
   // Singleton para uso en todas las visas (o almenos las que requieren auth, como la primera.)
 
   void signUp(
       String nombre, String email, String password, String telefono) async {}
 
-  void apiHit() async {
-    // usado para testing.
-  }
-
+  // Devuelve la password en md5 hash para mas seguridad.
   String _generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
 
+  /* 
+    Este metodo ya funciona, se comunica con el backend y manda email y pwd a verificar, retornando el token de acceso (en caso de no tenerlo.)
+  */
   Future<bool> login(String email, String password) async {
     Map<String, dynamic> authInfo = {'email': email, 'password': password};
 
@@ -47,11 +45,9 @@ class AuthService {
       Map<String, dynamic> json = jsonDecode(response.body);
       print(json['login']);
       print(json['token']);
-      amILoggedIn = true;
       return true;
     } else {
       print('pos no');
-      amILoggedIn = false;
       return false;
     }
   }
@@ -68,28 +64,6 @@ class AuthService {
     //   return true;
     // }
 
-    return amILoggedIn;
-  }
-
-  //Obtiene el directorio local del dispositivo (en este caso la carpeta de documentos donde guardaremos el token.file)
-  Future<String> get _localPath async {
-    final folder = await getApplicationDocumentsDirectory();
-    return folder.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = _localPath;
-    return File('$path/api_token.txt'); // si, no es seguro ya ni pedo Xd.
-  }
-
-  Future<String> leerArchivo() async {
-    try {
-      final archivo = await _localFile;
-      //leemos el archivo
-      String token = await archivo.readAsString();
-      return token;
-    } catch (e) {
-      return 'notoken';
-    }
+    return false;
   }
 }
