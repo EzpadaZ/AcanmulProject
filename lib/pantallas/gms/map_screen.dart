@@ -7,7 +7,7 @@ class MapScreen extends StatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-/**
+/*
   * Esta clase muestra el mapa y tengo la intencion de que muestre los datos del paquete (asi como la ruta con las polylines)
   * Todavia no tiene constructorasi que solo muestra una ubicacion de tipo demo.
   */
