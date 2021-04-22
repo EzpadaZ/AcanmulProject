@@ -11,11 +11,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AuthService authService = AuthService();
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   static List<Widget> vistas = <Widget>[
-    MainView(), // index 0.
-    ContactView(), // index 1
-    ProfileView() // index 2
+    ProfileView(),
+    MainView(),
+    ContactView()
   ];
 
   void _onItemTap(int index) {
@@ -31,11 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(child: vistas.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Contacto"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile")
         ],
         type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         elevation: 5,
         iconSize: 40,
