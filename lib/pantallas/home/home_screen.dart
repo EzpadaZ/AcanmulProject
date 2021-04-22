@@ -13,7 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   AuthService authService = AuthService();
   int _selectedIndex = 0;
   static List<Widget> vistas = <Widget>[
-    MainView(), // index 0
+    MainView(), // index 0.
+    ContactView(), // index 1
     ProfileView() // index 2
   ];
 
