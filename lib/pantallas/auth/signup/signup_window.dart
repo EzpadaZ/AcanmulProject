@@ -22,7 +22,8 @@ class SignUpWindow extends StatelessWidget {
 
     if (data['status'] == 200) {
       AuthService.setToken(data['token'], emailTextController.text);
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/home');
+
       return data;
     } else {
       // ALGO PASO, aun no hare el manejo de excepciones

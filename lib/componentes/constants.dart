@@ -11,7 +11,7 @@ const Color kDividerColor = Color(0xFFBDBDBD);
 const Color kBlackColor = Color(0xFF000000);
 const Color kGreyColor = Color(0xFF989898);
 const String kApiBackendUrl =
-    '192.168.1.159:5000'; // modifica esto con el valor correspondiente.
+    '10.80.2.177:5000'; // modifica esto con el valor correspondiente.
 const Map<String, String> kDefaultHeaders = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
