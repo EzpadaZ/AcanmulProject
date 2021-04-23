@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         elevation: 5,
-        iconSize: 40,
+        iconSize: 30,
         onTap: _onItemTap,
       ),
     );
