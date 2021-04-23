@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
-
+import '../debug_screen.dart';
 import '../../backend/PackageService.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> vistas = <Widget>[
     ProfileView(),
     MainView(),
-    ContactView()
+    ContactView(),
+    DebugView()
   ];
 
   void _onItemTap(int index) {
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Contacto"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Debug")
         ],
         type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.white,

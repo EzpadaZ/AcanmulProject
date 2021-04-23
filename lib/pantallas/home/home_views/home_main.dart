@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../backend/PackageService.dart';
 
 // Vista principal.
 // Falta llamar el backend para obtener informacion de la vista (y tambien falta la interfaz obviamente)
@@ -31,5 +32,5 @@ horizontalScroller(BuildContext context) {
       padding: EdgeInsets.only(top: 10.0, left: 20.0),
       height: 250.0,
       width: MediaQuery.of(context).size.width,
-      child: Text("Pronto :v"));
+      child: Text('Main View'));
 }

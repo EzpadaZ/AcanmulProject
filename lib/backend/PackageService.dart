@@ -9,17 +9,19 @@ class PackageService {
     'Accept': 'application/json'
   };
 
-  PackageService() {}
-
-  dynamic getHeaderToken() async {}
-
-  void getApiHeader() {
-    getHeaderToken();
-  }
   /**
    * Obtener todos los paquetes
    * Obtener 1 paquete
    * 
    * 1) Obtener todos los paquetes, iterar el JSON y hacer un mapa.
    */
+
+  PackageService() {
+    getHeaderToken();
+  }
+
+  dynamic getHeaderToken() async {
+    dynamic token = await SESSION.get('auth');
+    kApiHeader['auth-token'] = token;
+  }
 }
