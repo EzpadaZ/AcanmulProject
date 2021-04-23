@@ -1,16 +1,14 @@
 import 'package:acanmul_app/backend/AuthService.dart';
+import 'package:acanmul_app/backend/PackageService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 
 class DebugView extends StatelessWidget {
-  dynamic getToken() async {
-    dynamic token = await FlutterSession().get('auth');
-    print(token);
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    // Tiene que ser llamado en la creacion del Widget.
+    PackageService packageService = PackageService();
 
     return Column(
       children: <Widget>[
@@ -25,7 +23,7 @@ class DebugView extends StatelessWidget {
         TextButton(
           child: Text('Print Debug'),
           onPressed: () {
-            getToken();
+            packageService.printHeader();
           },
         ),
         TextButton(
@@ -38,6 +36,11 @@ class DebugView extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/auth/login');
           },
         ),
+        TextButton(
+            child: Text('See Packages'),
+            onPressed: () {
+              packageService.getAllPackages(); // no idea.
+            })
       ],
     );
   }

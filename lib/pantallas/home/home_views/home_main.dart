@@ -9,6 +9,9 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
+// FutureBuilder?
+// https://stackoverflow.com/questions/52128705/flutter-dart-looping-through-json-results-length-returns-0
+
 class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
@@ -21,16 +24,7 @@ class _MainViewState extends State<MainView> {
             style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
           ),
         ),
-        horizontalScroller(context)
       ],
     );
   }
-}
-
-horizontalScroller(BuildContext context) {
-  return Container(
-      padding: EdgeInsets.only(top: 10.0, left: 20.0),
-      height: 250.0,
-      width: MediaQuery.of(context).size.width,
-      child: Text('Main View'));
 }

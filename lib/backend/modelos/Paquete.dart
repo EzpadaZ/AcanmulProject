@@ -6,11 +6,11 @@ class Paquete {
 
   Paquete({this.titulo, this.descripcion, this.images, this.ubicaciones});
 
-  Paquete.fromJson(Map<String, dynamic> json)
-      : titulo = json['titulo'],
-        descripcion = json['descripcion'],
-        images = json['images'],
-        ubicaciones = json['ubicaciones'];
+  factory Paquete.fromJson(Map<String, dynamic> json) => Paquete(
+      titulo: json['titulo'],
+      descripcion: json['descripcion'],
+      images: json['images'],
+      ubicaciones: json['ubicaciones']);
 
   Map<String, dynamic> toJson() => {
         'titulo': titulo,
