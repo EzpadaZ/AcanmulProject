@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   AuthService authService = AuthService();
   int _selectedIndex = 1;
+
   static List<Widget> vistas = <Widget>[
     ProfileView(),
     MainView(),

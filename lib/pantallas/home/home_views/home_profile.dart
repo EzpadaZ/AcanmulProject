@@ -11,7 +11,11 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Profile View'),
+      child: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Text('Mi Perfil',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0)),
+      ),
     );
   }
 }

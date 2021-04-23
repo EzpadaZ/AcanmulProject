@@ -16,7 +16,7 @@ class DebugView extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.all(20.0),
-          child: Text('Mi Perfil',
+          child: Text('Debug Mode',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0)),
         ),
         SizedBox(
