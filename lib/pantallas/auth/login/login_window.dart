@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../componentes/reusable_card.dart';
 import '../../../componentes/constants.dart';
-import '../../../backend/APIService.dart';
+import '../../../backend/AuthService.dart';
 import 'dart:convert';
 
 class LoginWindow extends StatefulWidget {
@@ -19,15 +19,15 @@ class _LoginWindowState extends State<LoginWindow> {
 
   dynamic login(BuildContext context) async {
     authInfo = AuthService();
-
+    print('ojo');
     final res = await authInfo.login(
         emailTextController.text, passwordTextController.text);
 
     var data = jsonDecode(res) as Map<String, dynamic>;
 
     if (data['status'] == 200) {
-      AuthService.setToken(data['token'], emailTextController.text);
-      Navigator.pushNamed(context, '/home');
+      AuthService.setToken(data['token']);
+      Navigator.pushReplacementNamed(context, '/home');
       return data;
     }
   }

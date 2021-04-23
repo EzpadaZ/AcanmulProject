@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../componentes/constants.dart';
 import '../../../componentes/reusable_card.dart';
-import '../../../backend/APIService.dart';
+import '../../../backend/AuthService.dart';
 import 'dart:convert';
 
 class SignUpWindow extends StatelessWidget {
@@ -21,8 +21,9 @@ class SignUpWindow extends StatelessWidget {
     var data = jsonDecode(res) as Map<String, dynamic>;
 
     if (data['status'] == 200) {
-      AuthService.setToken(data['token'], emailTextController.text);
-      Navigator.pushNamed(context, '/home');
+      AuthService.setToken(data['token']);
+      Navigator.pushReplacementNamed(context, '/home');
+
       return data;
     } else {
       // ALGO PASO, aun no hare el manejo de excepciones

@@ -3,7 +3,7 @@ import './pantallas/home/home_screen.dart';
 import './pantallas/auth/login/login_window.dart';
 import './pantallas/auth/signup/signup_window.dart';
 import 'componentes/constants.dart';
-import 'backend/APIService.dart';
+import 'backend/AuthService.dart';
 
 void main() {
   runApp(MainLoader());
