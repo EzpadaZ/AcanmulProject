@@ -46,6 +46,7 @@ class PackageService {
         // fk
         paquetes.add(Paquete.fromJson(i));
       }
+      print(paquetes.length);
     } catch (err) {
       print(err);
     }
