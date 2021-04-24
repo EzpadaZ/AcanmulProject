@@ -39,7 +39,8 @@ class DebugView extends StatelessWidget {
         TextButton(
             child: Text('See Packages'),
             onPressed: () {
-              packageService.getAllPackages(); // no idea.
+              packageService
+                  .getAllPackages(); // retorna List<Paquete> :V ( o no aun)
             })
       ],
     );

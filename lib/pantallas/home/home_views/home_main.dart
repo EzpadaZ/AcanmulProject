@@ -12,6 +12,12 @@ class MainView extends StatefulWidget {
 // FutureBuilder?
 // https://stackoverflow.com/questions/52128705/flutter-dart-looping-through-json-results-length-returns-0
 
+/**
+ * Aight
+ * PackageService.dart ya retorna todos los paquetes en una List<Paquete> para iterar entre todos los paquetes retornados
+ * Todos los paquetes tienen sus definiciones y metodos para obtener sus cosas (titulo, desc, img, etc.)
+ */
+
 class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {

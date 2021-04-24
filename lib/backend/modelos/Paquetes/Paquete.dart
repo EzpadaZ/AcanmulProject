@@ -1,10 +1,15 @@
+import 'Ubicacion.dart';
+import 'Images.dart';
+
 class Paquete {
   String titulo;
   String descripcion;
-  var images;
-  var ubicaciones;
+  List<Images> images = [];
+  List<Ubicacion> ubicaciones = [];
 
   Paquete({this.titulo, this.descripcion, this.images, this.ubicaciones});
+
+  //Se necesitan modelos para imagenes y ubicaciones.
 
   factory Paquete.fromJson(Map<String, dynamic> json) => Paquete(
       titulo: json['titulo'],

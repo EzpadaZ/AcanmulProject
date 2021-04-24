@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
 import 'package:acanmul_app/componentes/constants.dart';
 import 'dart:convert';
-import 'package:acanmul_app/backend/modelos/Paquete.dart';
+import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 
 class PackageService {
   // pronto :v
@@ -27,8 +27,6 @@ class PackageService {
     print(kApiHeader);
   }
 
-  List<Paquete> paquetes = [];
-
   dynamic getHeaderToken() async {
     dynamic token = await SESSION.get('auth');
     kApiHeader['auth-token'] = token;
@@ -37,7 +35,7 @@ class PackageService {
   dynamic getAllPackages() async {
     // No se que debe retornar.
     // el HTTP Request retorna un JSON Array
-
+    List<Paquete> paquetes = [];
     try {
       var res = await http.get(Uri.http(kApiBackendUrl, 'api/paquete'),
           headers: kApiHeader);
@@ -46,10 +44,9 @@ class PackageService {
 
       for (Map i in decodedAnswer) {
         //wat
-        paquetes.add(Paquete.fromJson(i));
+        print(i['titulo']);
       }
-
-      print(paquetes[0].titulo);
+      //print(paquetes[0].images);
     } catch (err) {
       print(err);
     }
