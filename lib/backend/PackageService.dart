@@ -43,10 +43,9 @@ class PackageService {
       var decodedAnswer = jsonDecode(res.body);
 
       for (Map i in decodedAnswer) {
-        //wat
-        print(i['titulo']);
+        // fk
+        paquetes.add(Paquete.fromJson(i));
       }
-      //print(paquetes[0].images);
     } catch (err) {
       print(err);
     }
