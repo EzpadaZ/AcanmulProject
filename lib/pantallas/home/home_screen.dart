@@ -1,4 +1,5 @@
 import 'package:acanmul_app/backend/AuthService.dart';
+import 'package:acanmul_app/pantallas/home/home_views/home_testing.dart';
 import 'package:flutter/material.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
@@ -20,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileView(),
     MainView(),
     ContactView(),
-    DebugView()
+    DebugView(),
+    TestingView()
   ];
 
   void _onItemTap(int index) {
@@ -38,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Contacto"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Debug")
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Debug"),
+          BottomNavigationBarItem(icon: Icon(Icons.warning), label: 'Testing')
         ],
         type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.white,
