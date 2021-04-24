@@ -5,7 +5,11 @@ class ContactView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Contact View"),
+      child: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Text('Contacto',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0)),
+      ),
     );
   }
 }
