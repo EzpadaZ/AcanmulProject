@@ -32,6 +32,10 @@ class PackageService {
     kApiHeader['auth-token'] = token;
   }
 
+  dynamic getPackageInfo(String id) {
+    //aqui retornare algo :v maniana
+  }
+
   dynamic getAllPackages() async {
     // No se que debe retornar.
     // el HTTP Request retorna un JSON Array

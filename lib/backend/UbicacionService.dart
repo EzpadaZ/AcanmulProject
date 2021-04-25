@@ -29,11 +29,7 @@ class UbicacionService {
 
       var decodedAnswer = jsonDecode(res.body);
 
-      Ubicacion encontrada = Ubicacion.fromJson(decodedAnswer);
-      print(encontrada.titulo);
-      print(encontrada.description);
-      print(encontrada.geodata[0].lat);
-      print(encontrada.geodata[0].lng);
+      return Ubicacion.fromJson(decodedAnswer);
     } catch (err) {
       print(err);
     }
