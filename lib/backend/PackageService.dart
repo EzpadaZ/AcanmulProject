@@ -32,6 +32,10 @@ class PackageService {
     kApiHeader['auth-token'] = token;
   }
 
+  dynamic getPackageInfo(String id) {
+    //aqui retornare algo :v maniana
+  }
+
   dynamic getAllPackages() async {
     // No se que debe retornar.
     // el HTTP Request retorna un JSON Array
@@ -46,10 +50,7 @@ class PackageService {
         // fk
         paquetes.add(Paquete.fromJson(i));
       }
-      print(paquetes.length);
-      print(paquetes[0].titulo);
-      print(paquetes[0].ubicaciones);
-      print(paquetes[0].images[0].url);
+      return paquetes;
     } catch (err) {
       print(err);
     }
