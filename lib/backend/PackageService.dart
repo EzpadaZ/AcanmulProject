@@ -46,10 +46,7 @@ class PackageService {
         // fk
         paquetes.add(Paquete.fromJson(i));
       }
-      print(paquetes.length);
-      print(paquetes[0].titulo);
-      print(paquetes[0].ubicaciones);
-      print(paquetes[0].images[0].url);
+      return paquetes;
     } catch (err) {
       print(err);
     }
