@@ -1,6 +1,6 @@
-import 'package:acanmul_app/backend/AuthService.dart';
-import 'package:acanmul_app/backend/PackageService.dart';
-import 'package:acanmul_app/backend/UbicacionService.dart';
+import 'package:acanmul_app/backend/services/AuthService.dart';
+import 'package:acanmul_app/backend/services/PackageService.dart';
+import 'package:acanmul_app/backend/services/UbicacionService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 

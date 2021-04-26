@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../backend/PackageService.dart';
+import '../../../backend/services/PackageService.dart';
 
 // Vista principal.
 // Falta llamar el backend para obtener informacion de la vista (y tambien falta la interfaz obviamente)
-
 class MainView extends StatefulWidget {
   @override
   _MainViewState createState() => _MainViewState();
 }
-
 // FutureBuilder?
 // https://stackoverflow.com/questions/52128705/flutter-dart-looping-through-json-results-length-returns-0
 

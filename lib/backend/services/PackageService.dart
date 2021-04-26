@@ -50,6 +50,7 @@ class PackageService {
         // fk
         paquetes.add(Paquete.fromJson(i));
       }
+      print("We got (amnt of pkgs): " + paquetes.length.toString());
       return paquetes;
     } catch (err) {
       print(err);

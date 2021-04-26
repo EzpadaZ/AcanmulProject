@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../componentes/constants.dart';
-import '../../../componentes/reusable_card.dart';
-import '../../../backend/AuthService.dart';
+import '../../../componentes/screens/reusable_card.dart';
+import '../../../backend/services/AuthService.dart';
 import 'dart:convert';
 
 class SignUpWindow extends StatelessWidget {
