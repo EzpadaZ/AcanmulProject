@@ -1,5 +1,6 @@
 import 'package:acanmul_app/backend/AuthService.dart';
 import 'package:acanmul_app/backend/PackageService.dart';
+import 'package:acanmul_app/backend/UbicacionService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 
@@ -9,6 +10,7 @@ class DebugView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     // Tiene que ser llamado en la creacion del Widget.
     PackageService packageService = PackageService();
+    UbicacionService ubicacionService = UbicacionService();
 
     return Column(
       children: <Widget>[
@@ -41,6 +43,12 @@ class DebugView extends StatelessWidget {
             onPressed: () {
               packageService
                   .getAllPackages(); // retorna List<Paquete> :V ( o no aun)
+            }),
+        TextButton(
+            child: Text('Get Debug Location Data'),
+            onPressed: () {
+              // aja
+              ubicacionService.getLocationData('607f2e19bc7be937405febc5');
             })
       ],
     );
