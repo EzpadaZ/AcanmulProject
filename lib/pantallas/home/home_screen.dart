@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
-import '../debug_screen.dart';
+import 'home_views/debug_screen.dart';
 import '../../backend/services/PackageService.dart';
 
 class HomeScreen extends StatefulWidget {
