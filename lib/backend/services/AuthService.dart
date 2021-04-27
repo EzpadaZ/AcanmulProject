@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_session/flutter_session.dart';
-import '../componentes/constants.dart';
+import '../../componentes/constants.dart';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +31,7 @@ class AuthService {
   }
 
   Future<dynamic> login(String email, String password) async {
-    var requestBody = {'email': email, 'password': password};
+    var requestBody = {'email': email, 'password': _generateMd5(password)};
     try {
       var res = await http.post(Uri.http(kApiBackendUrl, 'auth/login'),
           headers: kDefaultHeaders, body: jsonEncode(requestBody));
@@ -41,28 +41,15 @@ class AuthService {
     }
   }
 
-  static setToken(String token, String email) async {
-    _AuthData _authData = _AuthData(token, email);
-    return await SESSION.set('auth', _authData);
+  static setToken(String token) async {
+    return await SESSION.set('auth', token);
   }
 
-  static Future<Map<String, dynamic>> getToken() async {
+  static Future<String> getToken() async {
     return await SESSION.get('auth');
   }
 
   static removeToken() async {
     await SESSION.prefs.clear();
-  }
-}
-
-class _AuthData {
-  String token, email;
-  _AuthData(this.token, this.email);
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['token'] = email;
-    data['email'] = email;
-    return data;
   }
 }
