@@ -61,7 +61,7 @@ class _MainViewState extends State<MainView> {
             style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
           ),
         ),
-        buildHorizontalList(context)
+        buildHorizontalList(context),
       ],
     );
   }
