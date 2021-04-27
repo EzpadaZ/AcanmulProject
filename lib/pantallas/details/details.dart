@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:acanmul_app/backend/modelos/Paquetes/Images.dart';
+import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:acanmul_app/componentes/tempLugares.dart';
 
 class DetailsView extends StatelessWidget {
+  List<Images> imagenes = [];
+  Paquete paquete;
+
+  DetailsView({this.paquete});
+
+  void prepararDemo() {
+    imagenes.add(Images(url: 'aaaaaaa'));
+    imagenes.add(Images(url: 'aaaaaaa'));
+    imagenes.add(Images(url: 'aaaaaaa'));
+    paquete = Paquete(
+        id: 'a',
+        titulo: 'titulo',
+        descripcion: 'aaa',
+        images: imagenes,
+        ubicaciones: ['1', '2']);
+  }
+
   Widget build(BuildContext context) {
+    prepararDemo();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,7 +49,7 @@ class DetailsView extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "${lugares[0]["nombre"]}",
+                      paquete.titulo,
                       style:
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                       maxLines: 2,
@@ -67,17 +87,24 @@ class DetailsView extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "${lugares[0]["detalles"]}",
+                  paquete.descripcion,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
                   ),
                   textAlign: TextAlign.left,
                 ),
-              )
+              ),
+              SizedBox(height: 10.0),
             ],
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.directions_car,
+        ),
+        onPressed: () {},
       ),
     );
   }
