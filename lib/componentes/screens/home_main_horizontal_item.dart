@@ -23,8 +23,8 @@ class HorizontalItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
                     paquete.images[0].url,
-                    height: 178.0,
-                    width: 150.0,
+                    height: 168.0,
+                    width: 140.0,
                     fit: BoxFit.cover,
                   )),
               SizedBox(
