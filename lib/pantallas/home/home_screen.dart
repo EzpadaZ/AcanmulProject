@@ -1,11 +1,11 @@
-import 'package:acanmul_app/backend/AuthService.dart';
+import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:acanmul_app/pantallas/home/home_views/home_testing.dart';
 import 'package:flutter/material.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
-import '../debug_screen.dart';
-import '../../backend/PackageService.dart';
+import 'home_views/debug_screen.dart';
+import '../../backend/services/PackageService.dart';
 
 class HomeScreen extends StatefulWidget {
   //damian was here :v
