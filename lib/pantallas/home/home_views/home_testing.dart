@@ -6,13 +6,20 @@ import 'package:carousel_slider/carousel_slider.dart';
 class TestingView extends StatelessWidget {
   List<Images> imagenes = [];
   Paquete paquete;
+  List<Widget> imageSlider;
 
   TestingView({this.paquete});
 
   void prepararDemo() {
-    imagenes.add(Images(url: 'https://culturacampeche.com/turismocultural/images/municipios/calakmul/cal.JPG'));
-    imagenes.add(Images(url: 'https://mexicotravelchannel.com.mx/wp-content/uploads/2021/01/calakmul-sigue-las-rutas-selvaticas-de-este-destino-en-campeche-mexico-travel-channel.jpg'));
-    imagenes.add(Images(url: 'https://www.inah.gob.mx/images/fotodeldia/20180919_calakmul.jpg'));
+    imagenes.add(Images(
+        url:
+            'https://culturacampeche.com/turismocultural/images/municipios/calakmul/cal.JPG'));
+    imagenes.add(Images(
+        url:
+            'https://mexicotravelchannel.com.mx/wp-content/uploads/2021/01/calakmul-sigue-las-rutas-selvaticas-de-este-destino-en-campeche-mexico-travel-channel.jpg'));
+    imagenes.add(Images(
+        url:
+            'https://www.inah.gob.mx/images/fotodeldia/20180919_calakmul.jpg'));
     paquete = Paquete(
         id: 'M474M3Y4',
         titulo: 'Calakmul',
@@ -21,10 +28,56 @@ class TestingView extends StatelessWidget {
         ubicaciones: ['ubi1', 'ubi2']);
   }
 
+  void inicializarSlider() {
+    imageSlider = paquete.images
+        .map((item) => Container(
+              child: Container(
+                margin: EdgeInsets.all(5.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(item.url,
+                            fit: BoxFit.cover, width: 1200.0),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(200, 0, 0, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Text(
+                              '',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ))
+        .toList();
+  }
+
 //child: Text(paquete.titulo),
   @override
   Widget build(BuildContext context) {
     prepararDemo();
+    inicializarSlider();
     return Container(
       child: CarouselSlider(
         options: CarouselOptions(
@@ -35,47 +88,8 @@ class TestingView extends StatelessWidget {
           initialPage: 2,
           autoPlay: true,
         ),
-        items: imageSliders,),
+        items: imageSlider,
+      ),
     );
   }
-
-  final List<Widget> imageSliders = .map((item) => Container(
-  child: Container(
-    margin: EdgeInsets.all(5.0),
-    child: ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-      child: Stack(
-        children: <Widget>[
-          Image.network(item, fit: BoxFit.cover, width: 1200.0),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(200, 0, 0, 0),
-                    Color.fromARGB(0, 0, 0, 0)
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                'LugarX. Imagen ${imagenes.indexOf(item)}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
-      )
-    ),
-  ),
-)).toList();
 }
