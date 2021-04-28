@@ -7,11 +7,8 @@ import 'package:acanmul_app/componentes/screens/reusable_preview.dart';
 // Vista principal.
 // Falta llamar el backend para obtener informacion de la vista (y tambien falta la interfaz obviamente)
 class MainView extends StatefulWidget {
-  final PackageService packageService = PackageService();
-
   @override
-  _MainViewState createState() =>
-      _MainViewState(packageService: packageService);
+  _MainViewState createState() => _MainViewState();
 }
 // FutureBuilder?
 // https://stackoverflow.com/questions/52128705/flutter-dart-looping-through-json-results-length-returns-0
@@ -23,10 +20,7 @@ class MainView extends StatefulWidget {
  */
 
 class _MainViewState extends State<MainView> {
-  List<Paquete> paquetes;
-  PackageService packageService;
-
-  _MainViewState({this.packageService});
+  _MainViewState();
   /**
    * Probablemente estoy usando el FutureBuilder mal. :v whoknows.
    */
@@ -39,20 +33,20 @@ class _MainViewState extends State<MainView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else if (snapshot.hasData) {
-          return buildMainView();
+          final paquetes = snapshot.data as List<Paquete>;
+          return buildMainView(paquetes);
         } else {
-          return Container();
+          return Text(snapshot.error.toString());
         }
       },
     );
   }
 
-  dynamic _getPkgs() async {
-    paquetes = await packageService.getAllPackages();
-    return paquetes;
+  Future<List<Paquete>> _getPkgs() async {
+    return await PackageService.getAllPackages();
   }
 
-  buildMainView() {
+  buildMainView(List<Paquete> paquetes) {
     // futurebuilder mainobj
     return ListView(
       physics: NeverScrollableScrollPhysics(),
@@ -64,7 +58,7 @@ class _MainViewState extends State<MainView> {
             style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
           ),
         ),
-        buildHorizontalList(context),
+        buildHorizontalList(context, paquetes),
         Padding(
           padding: EdgeInsets.only(left: 20),
           child: Text(
@@ -72,12 +66,12 @@ class _MainViewState extends State<MainView> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
         ),
-        buildVerticalList(context)
+        buildVerticalList(context, paquetes)
       ],
     );
   }
 
-  buildHorizontalList(BuildContext context) {
+  buildHorizontalList(BuildContext context, List<Paquete> paquetes) {
     return Container(
       padding: EdgeInsets.only(top: 10, left: 20),
       height: 250.0,
@@ -93,7 +87,7 @@ class _MainViewState extends State<MainView> {
     );
   }
 
-  buildVerticalList(BuildContext context) {
+  buildVerticalList(BuildContext context, List<Paquete> paquetes) {
     return Container(
       padding: EdgeInsets.all(20),
       height: 250.0,

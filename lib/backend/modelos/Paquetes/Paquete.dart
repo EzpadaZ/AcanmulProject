@@ -1,3 +1,5 @@
+import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
+
 import 'Images.dart';
 
 class Paquete {
@@ -6,7 +8,7 @@ class Paquete {
   String descripcion;
   List<Images> images = [];
   //Ubicacion es una lista de IDs.
-  List<dynamic> ubicaciones = [];
+  List<Ubicacion> ubicaciones = [];
 
   Paquete(
       {this.id, this.titulo, this.descripcion, this.images, this.ubicaciones});
@@ -17,7 +19,9 @@ class Paquete {
       titulo: json['titulo'],
       descripcion: json['descripcion'],
       images: (json['images'] as List).map((i) => Images.fromJson(i)).toList(),
-      ubicaciones: (json['ubicaciones'] as List).map((i) => i).toList());
+      ubicaciones: (json['ubicaciones'] as List)
+          .map((i) => Ubicacion.fromJson(i))
+          .toList());
 
   Map<String, dynamic> toJson() => {
         'titulo': titulo,
