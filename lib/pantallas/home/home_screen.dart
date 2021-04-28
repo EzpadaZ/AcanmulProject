@@ -13,6 +13,14 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+/**
+ * PackageService, UbicacionService
+ * ---------------------------------------------------
+ * Necesitan ser instanciados en singleton o instanciados aqui
+ * y pasar sus referencias mas adelantes para evitar el error de 
+ * carga inicial del MainView();
+ */
+
 class _HomeScreenState extends State<HomeScreen> {
   AuthService authService = AuthService();
   int _selectedIndex = 1;

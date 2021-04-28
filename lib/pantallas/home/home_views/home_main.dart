@@ -7,7 +7,7 @@ import 'package:acanmul_app/componentes/screens/reusable_preview.dart';
 // Vista principal.
 // Falta llamar el backend para obtener informacion de la vista (y tambien falta la interfaz obviamente)
 class MainView extends StatefulWidget {
-  PackageService packageService = PackageService();
+  final PackageService packageService = PackageService();
 
   @override
   _MainViewState createState() =>
@@ -34,19 +34,22 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getPkgs(),
+      future: _getPkgs(),
       builder: (_, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
-        } else {
+        } else if (snapshot.hasData) {
           return buildMainView();
+        } else {
+          return Container();
         }
       },
     );
   }
 
-  dynamic getPkgs() async {
+  dynamic _getPkgs() async {
     paquetes = await packageService.getAllPackages();
+    return paquetes;
   }
 
   buildMainView() {
@@ -82,7 +85,7 @@ class _MainViewState extends State<MainView> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        itemCount: paquetes.length,
+        itemCount: (paquetes == null) ? 0 : paquetes.length,
         itemBuilder: (BuildContext context, int index) {
           return HorizontalItem(paquete: paquetes[index]);
         },
@@ -98,7 +101,7 @@ class _MainViewState extends State<MainView> {
         primary: false,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: paquetes.length,
+        itemCount: (paquetes == null) ? 0 : paquetes.length,
         itemBuilder: (BuildContext context, int index) {
           return ReusablePreview(paquete: paquetes[index]);
         },
