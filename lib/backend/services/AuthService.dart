@@ -8,6 +8,10 @@ import 'package:http/http.dart' as http;
 
 class AuthService {
   static final SESSION = FlutterSession();
+  static final Map<String, String> kApiHeader = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  };
 
   String _generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
@@ -46,7 +50,10 @@ class AuthService {
   }
 
   static Future<String> getToken() async {
-    return await SESSION.get('auth');
+    String token = await SESSION.get('auth');
+    print('AuthSession Token: ' + token);
+    kApiHeader['auth-token'] = token;
+    return token;
   }
 
   static removeToken() async {

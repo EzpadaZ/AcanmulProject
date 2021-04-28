@@ -2,36 +2,29 @@ import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'package:acanmul_app/componentes/constants.dart';
 import 'dart:convert';
-import 'package:acanmul_app/backend/modelos/Ubicacion/Ubicacion.dart';
+import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
+
+import 'AuthService.dart';
 
 class UbicacionService {
-  static final SESSION = FlutterSession();
-  static final Map<String, String> kApiHeader = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
-
-  UbicacionService() {
-    _getAuthHeaderToken();
-  }
-
-  dynamic _getAuthHeaderToken() async {
-    dynamic token = await SESSION.get('auth');
-    kApiHeader['auth-token'] = token;
-  }
-
-  dynamic getLocationData(String id) async {
+  static Future<Ubicacion> getLocationData(String id) async {
     // pide a la api la informacion al endpoint de /api/ubicacion/:Id
-
+    Ubicacion obtenida;
     try {
       var res = await http.get(Uri.http(kApiBackendUrl, 'api/ubicacion/' + id),
-          headers: kApiHeader);
+          headers: AuthService.kApiHeader);
 
       var decodedAnswer = jsonDecode(res.body);
-
-      return Ubicacion.fromJson(decodedAnswer);
+      obtenida = Ubicacion.fromJson(decodedAnswer);
     } catch (err) {
       print(err);
+    }
+
+    if (obtenida == null) {
+      //retorno una ubicacion default
+      return null;
+    } else {
+      return obtenida;
     }
   }
 }
