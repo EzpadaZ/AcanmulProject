@@ -111,7 +111,7 @@ class DetailsView extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "es gratis buey",
+                    "\$8,000,000",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
