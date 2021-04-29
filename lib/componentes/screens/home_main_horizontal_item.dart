@@ -11,6 +11,7 @@ class HorizontalItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print(paquete.titulo);
+        print(paquete.ubicaciones[0].imagen);
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -22,7 +23,7 @@ class HorizontalItem extends StatelessWidget {
               ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    paquete.images[0].url,
+                    paquete.imagen,
                     height: 168.0,
                     width: 140.0,
                     fit: BoxFit.cover,

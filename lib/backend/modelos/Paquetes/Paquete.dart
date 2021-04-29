@@ -6,19 +6,19 @@ class Paquete {
   String id;
   String titulo;
   String descripcion;
-  List<Images> images = [];
+  String imagen;
   //Ubicacion es una lista de IDs.
   List<Ubicacion> ubicaciones = [];
 
   Paquete(
-      {this.id, this.titulo, this.descripcion, this.images, this.ubicaciones});
+      {this.id, this.titulo, this.descripcion, this.imagen, this.ubicaciones});
 
   //Se necesitan modelos para imagenes y ubicaciones.
   factory Paquete.fromJson(Map<String, dynamic> json) => Paquete(
       id: json['_id'],
       titulo: json['titulo'],
       descripcion: json['descripcion'],
-      images: (json['images'] as List).map((i) => Images.fromJson(i)).toList(),
+      imagen: json['imagen'],
       ubicaciones: (json['ubicaciones'] as List)
           .map((i) => Ubicacion.fromJson(i))
           .toList());
@@ -26,7 +26,7 @@ class Paquete {
   Map<String, dynamic> toJson() => {
         'titulo': titulo,
         'descripcion': descripcion,
-        'images': images,
+        'imagen': imagen,
         'ubicaciones': ubicaciones
       };
 }
