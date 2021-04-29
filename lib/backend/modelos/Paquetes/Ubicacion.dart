@@ -1,15 +1,34 @@
 class Ubicacion {
-  String titulo, description, image, tipo;
+  String titulo,
+      significado,
+      acceso,
+      horario,
+      costoAcceso,
+      serviciosCercanos,
+      imagen,
+      tipo;
   List<GeoData> geodata = [];
 
   Ubicacion(
-      {this.titulo, this.description, this.image, this.tipo, this.geodata});
+      {this.titulo,
+      this.significado,
+      this.acceso,
+      this.horario,
+      this.costoAcceso,
+      this.serviciosCercanos,
+      this.imagen,
+      this.tipo,
+      this.geodata});
 
   // factory // fromJson // toJson.
   factory Ubicacion.fromJson(Map<String, dynamic> json) => Ubicacion(
       titulo: json['titulo'],
-      description: json['description'],
-      image: json['image'],
+      significado: json['significado'],
+      acceso: json['acceso'],
+      horario: json['horario'],
+      costoAcceso: json['costo_de_acceso'],
+      serviciosCercanos: json['servicios_cercanos'],
+      imagen: json['imagen'],
       tipo: json['tipo'],
       geodata:
           (json['ubicacion'] as List).map((i) => GeoData.fromJson(i)).toList());

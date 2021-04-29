@@ -20,7 +20,7 @@ class ReusablePreview extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image.network(
-                paquete.images[0].url,
+                paquete.imagen,
                 height: 110.0,
                 width: 110.0,
                 fit: BoxFit.cover,
