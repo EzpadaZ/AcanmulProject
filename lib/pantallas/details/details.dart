@@ -1,37 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:acanmul_app/backend/modelos/Paquetes/Images.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
-import 'package:acanmul_app/componentes/tempLugares.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:acanmul_app/componentes/constants.dart';
 
 class DetailsView extends StatelessWidget {
-  List<Images> imagenes = [];
   Paquete paquete;
-  List<Widget> imageSlider;
+  List<Widget> imageSlider = [];
 
   DetailsView({this.paquete});
 
-  void prepararDemo() {
-    imagenes.add(Images(
-        url:
-            'https://culturacampeche.com/turismocultural/images/municipios/calakmul/cal.JPG'));
-    imagenes.add(Images(
-        url:
-            'https://mexicotravelchannel.com.mx/wp-content/uploads/2021/01/calakmul-sigue-las-rutas-selvaticas-de-este-destino-en-campeche-mexico-travel-channel.jpg'));
-    imagenes.add(Images(
-        url:
-            'https://www.inah.gob.mx/images/fotodeldia/20180919_calakmul.jpg'));
-
-    paquete = Paquete(
-        id: 'M474M3Y4',
-        titulo: 'Calakmul',
-        descripcion: 'aaa',
-        images: imagenes,
-        ubicaciones: []);
-  }
-
-    void inicializarSlider() {
-    imageSlider = paquete.images
+  void inicializarSlider() {
+    imageSlider = paquete.ubicaciones
         .map((item) => Container(
               child: Container(
                 margin: EdgeInsets.all(5.0),
@@ -39,8 +18,8 @@ class DetailsView extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     child: Stack(
                       children: <Widget>[
-                        Image.network(item.url,
-                            fit: BoxFit.cover, width: 1200.0),
+                        Image.network(item.imagen,
+                            fit: BoxFit.fitWidth, width: 1200.0),
                         Positioned(
                           bottom: 0.0,
                           left: 0.0,
@@ -76,15 +55,20 @@ class DetailsView extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    prepararDemo();
     inicializarSlider();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0),
+        child: AppBar(
+          backgroundColor: kBackgroundColor,
+          elevation: 0,
+          leading: IconButton(
+            splashRadius: 0.1,
+            icon: Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
-          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: ListView(
@@ -127,7 +111,7 @@ class DetailsView extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "${lugares[0]["precio"]}",
+                    "es gratis buey",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,

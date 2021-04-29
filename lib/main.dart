@@ -34,6 +34,7 @@ class MainLoader extends StatelessWidget {
             DetailsView() //No me lo quites con esto hago pruebas
       },
       theme: ThemeData.dark().copyWith(
+        backgroundColor: kBackgroundColor,
         primaryColor: kPrimaryAccentColor,
         dividerColor: kDividerColor,
         accentColor: kAccentColor,

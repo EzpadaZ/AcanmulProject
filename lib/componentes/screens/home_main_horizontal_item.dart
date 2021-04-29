@@ -1,4 +1,5 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
+import 'package:acanmul_app/pantallas/details/details.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalItem extends StatelessWidget {
@@ -10,8 +11,12 @@ class HorizontalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(paquete.titulo);
-        print(paquete.ubicaciones[0].imagen);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsView(
+                      paquete: paquete,
+                    )));
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5),
