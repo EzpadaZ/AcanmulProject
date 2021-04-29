@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:acanmul_app/componentes/datos_perfil.dart';
+import 'package:acanmul_app/componentes/screens/datos_perfil.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -14,25 +14,23 @@ class _ProfileViewState extends State<ProfileView> {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
         Container(
-          alignment:AlignmentDirectional.topStart,
+          alignment: AlignmentDirectional.topStart,
           child: Padding(
             padding: EdgeInsets.all(20.0),
-        
             child: Text('Mi Perfil',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0)),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0)),
+          ),
         ),
-      ),
-
-        DatosPerfil(label: 'Nombre:', informacion: 'Juanito',),
-        DatosPerfil(label: 'Email:', informacion: 'example@me.com',)
-        
+        DatosPerfil(
+          label: 'Nombre:',
+          informacion: 'Juanito',
+        ),
+        DatosPerfil(
+          label: 'Email:',
+          informacion: 'example@me.com',
+        )
       ],
-
     );
-    
-    
-    
   }
 }

@@ -1,17 +1,27 @@
-import 'package:acanmul_app/backend/AuthService.dart';
+import 'dart:developer';
+
+import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:acanmul_app/pantallas/home/home_views/home_testing.dart';
 import 'package:flutter/material.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
-import '../debug_screen.dart';
-import '../../backend/PackageService.dart';
+import 'home_views/debug_screen.dart';
+import '../../backend/services/PackageService.dart';
 
 class HomeScreen extends StatefulWidget {
   //damian was here :v
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
+/**
+ * PackageService, UbicacionService
+ * ---------------------------------------------------
+ * Necesitan ser instanciados en singleton o instanciados aqui
+ * y pasar sus referencias mas adelantes para evitar el error de 
+ * carga inicial del MainView();
+ */
 
 class _HomeScreenState extends State<HomeScreen> {
   AuthService authService = AuthService();
@@ -33,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(child: vistas.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
