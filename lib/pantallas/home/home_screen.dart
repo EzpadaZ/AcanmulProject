@@ -8,6 +8,7 @@ import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
 import 'home_views/debug_screen.dart';
 import '../../backend/services/PackageService.dart';
+import 'package:acanmul_app/pantallas/details/details.dart';
 
 class HomeScreen extends StatefulWidget {
   //damian was here :v
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MainView(),
     ContactView(),
     DebugView(),
-    TestingView()
+    DetailsView()
   ];
 
   void _onItemTap(int index) {
