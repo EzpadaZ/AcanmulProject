@@ -18,7 +18,7 @@ class DetailsView extends StatelessWidget {
         titulo: 'titulo',
         descripcion: 'aaa',
         images: imagenes,
-        ubicaciones: ['1', '2']);
+        ubicaciones: []);
   }
 
   Widget build(BuildContext context) {
