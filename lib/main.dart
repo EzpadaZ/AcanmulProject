@@ -1,4 +1,3 @@
-import 'package:acanmul_app/pantallas/details/details.dart';
 import 'package:flutter/material.dart';
 import './pantallas/home/home_screen.dart';
 import './pantallas/auth/login/login_window.dart';
@@ -30,8 +29,6 @@ class MainLoader extends StatelessWidget {
             HomeScreen(), // <- HomeScreen decidira si estamos logeados o no, retornando a la ruta de /auth/login.
         '/auth/login': (context) => LoginWindow(),
         '/auth/signup': (context) => SignUpWindow(),
-        '/details/': (context) =>
-            DetailsView() //No me lo quites con esto hago pruebas
       },
       theme: ThemeData.dark().copyWith(
         backgroundColor: kBackgroundColor,

@@ -1,4 +1,5 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
+import 'package:acanmul_app/pantallas/home/home_views/home_package_details.dart';
 import 'package:flutter/material.dart';
 
 class ReusablePreview extends StatelessWidget {
@@ -11,7 +12,13 @@ class ReusablePreview extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // accion del boton a mandar a la vista de detalles.
-        print(paquete.titulo);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsView(
+                paquete: paquete,
+              ),
+            ));
       },
       child: Padding(
         padding: EdgeInsets.all(8.0),

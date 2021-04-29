@@ -52,7 +52,7 @@ class _MainViewState extends State<MainView> {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(12.0),
           child: Text(
             "Mas vistos",
             style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
@@ -79,7 +79,7 @@ class _MainViewState extends State<MainView> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        itemCount: (paquetes == null) ? 0 : paquetes.length,
+        itemCount: (paquetes == null) ? 0 : (paquetes.length ~/ 2),
         itemBuilder: (BuildContext context, int index) {
           return HorizontalItem(paquete: paquetes[index]);
         },
@@ -88,16 +88,17 @@ class _MainViewState extends State<MainView> {
   }
 
   buildVerticalList(BuildContext context, List<Paquete> paquetes) {
+    List<Paquete> reverso = paquetes.reversed.toList();
     return Container(
       padding: EdgeInsets.all(20),
-      height: 250.0,
+      height: 300.0,
       child: ListView.builder(
         primary: false,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: (paquetes == null) ? 0 : paquetes.length,
+        itemCount: (paquetes == null) ? 0 : reverso.length,
         itemBuilder: (BuildContext context, int index) {
-          return ReusablePreview(paquete: paquetes[index]);
+          return ReusablePreview(paquete: reverso[index]);
         },
       ),
     );

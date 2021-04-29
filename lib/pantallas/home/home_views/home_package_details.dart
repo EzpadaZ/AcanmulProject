@@ -65,7 +65,7 @@ class DetailsView extends StatelessWidget {
           leading: IconButton(
             splashRadius: 0.1,
             icon: Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios,
             ),
             onPressed: () => Navigator.pop(context),
           ),
@@ -149,11 +149,14 @@ class DetailsView extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.directions_car,
-        ),
-        onPressed: () {},
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Ver costo y ruta'),
+        icon: Icon(Icons.add_location_alt),
+        backgroundColor: kTextIconColor,
+        autofocus: false,
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(kNotImplementedSnackBar);
+        },
       ),
     );
   }

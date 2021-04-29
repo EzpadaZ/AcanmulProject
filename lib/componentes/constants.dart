@@ -11,6 +11,10 @@ const Color kDividerColor = Color(0xFFBDBDBD);
 const Color kBlackColor = Color(0xFF000000);
 const Color kGreyColor = Color(0xFF989898);
 const Color kBackgroundColor = Color(0xFF303030);
+const SnackBar kNotImplementedSnackBar = SnackBar(
+  content: Text('Funcion no implementada'),
+  duration: Duration(seconds: 1),
+);
 const String kApiBackendUrl =
     '192.168.1.159:5000'; // modifica esto con el valor correspondiente.
 const Map<String, String> kDefaultHeaders = {

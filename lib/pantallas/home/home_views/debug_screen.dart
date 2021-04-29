@@ -1,6 +1,4 @@
-import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
 import 'package:acanmul_app/backend/services/AuthService.dart';
-import 'package:acanmul_app/backend/services/UbicacionService.dart';
 import 'package:flutter/material.dart';
 
 class DebugView extends StatelessWidget {
