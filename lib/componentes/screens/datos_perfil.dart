@@ -28,9 +28,6 @@ class DatosPerfil extends StatelessWidget {
               ),          
             ),
           ),
-
-
-
           Expanded(
               child: Card(
               margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),

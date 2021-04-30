@@ -1,3 +1,4 @@
+import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,13 +14,13 @@ class DetailsView extends StatelessWidget {
     imageSlider = paquete.ubicaciones
         .map((item) => Container(
               child: Container(
-                margin: EdgeInsets.all(5.0),
+                margin: EdgeInsets.only(left: 10, right: 10),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     child: Stack(
                       children: <Widget>[
                         Image.network(item.imagen,
-                            fit: BoxFit.fitWidth, width: 1200.0),
+                            fit: BoxFit.cover, width: 1200.0),
                         Positioned(
                           bottom: 0.0,
                           left: 0.0,
@@ -73,10 +74,9 @@ class DetailsView extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          SizedBox(height: 10),
           CarouselSlider(
             options: CarouselOptions(
-              aspectRatio: 2.0,
+              aspectRatio: (16/9),
               viewportFraction: 1,
               enlargeCenterPage: true,
               enableInfiniteScroll: false,
@@ -108,18 +108,32 @@ class DetailsView extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "\$8,000,000",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                    maxLines: 1,
-                    textAlign: TextAlign.left,
-                  )),
-              SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "\$8,000,000",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                        maxLines: 1,
+                        textAlign: TextAlign.left,
+                      )),
+                  FloatingActionButton.extended(
+                    label: Text('Ver costo y ruta'),
+                    icon: Icon(Icons.commute),
+                    backgroundColor: kTextIconColor,
+                    autofocus: false,
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(kNotImplementedSnackBar);
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -146,18 +160,110 @@ class DetailsView extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
             ],
+          ),
+          SizedBox(height: 10,),
+          Container(
+            padding: EdgeInsets.only(left: 20),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Ubicaciones incluidas",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+              maxLines: 1,
+              textAlign: TextAlign.left,
+            ),
+          ),
+          SizedBox(height: 10),
+          ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: paquete.ubicaciones.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+                height: 50,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Text(paquete.ubicaciones[index].titulo,
+                            textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              _showLocationDetails(context, paquete.ubicaciones[index]);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(0.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add_location_alt_outlined),
+                                  SizedBox(width: 5,),
+                                  Text('Ver Mas')
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text('Ver costo y ruta'),
-        icon: Icon(Icons.add_location_alt),
-        backgroundColor: kTextIconColor,
-        autofocus: false,
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(kNotImplementedSnackBar);
-        },
-      ),
+
+    );
+  }
+
+  void _showLocationDetails(context, Ubicacion details){
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc){
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.60,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(details.titulo,
+                    style: TextStyle(color: kTextIconColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: [
+                    Text('si jala Xd')
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 }

@@ -51,7 +51,7 @@ class AuthService {
 
   static Future<String> getToken() async {
     String token = await SESSION.get('auth');
-    print('AuthSession Token: ' + token);
+    print('-----------------------------------\n'+'AuthSession Token: ' + token +'\n-----------------------------------');
     kApiHeader['auth-token'] = token;
     return token;
   }

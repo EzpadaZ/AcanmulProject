@@ -47,7 +47,6 @@ class _MainViewState extends State<MainView> {
   }
 
   buildMainView(List<Paquete> paquetes) {
-    // futurebuilder mainobj
     return ListView(
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
