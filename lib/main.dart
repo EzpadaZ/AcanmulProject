@@ -25,10 +25,9 @@ class MainLoader extends StatelessWidget {
             }
           }),
       routes: {
-        '/home': (context) =>
-            HomeScreen(), // <- HomeScreen decidira si estamos logeados o no, retornando a la ruta de /auth/login.
-        '/auth/login': (context) => LoginWindow(),
-        '/auth/signup': (context) => SignUpWindow(),
+        '/home': (context) => HomeScreen(), // <- HomeScreen decidira si estamos logeados o no, retornando a la ruta de /auth/login.
+        '/auth/login': (context) => LoginWindow(), // <- LoginWindow esta encargado de iniciar sesion.
+        '/auth/signup': (context) => SignUpWindow(), // <- SignUpWindow es para registrarse con el backend.
       },
       theme: ThemeData.dark().copyWith(
         backgroundColor: kBackgroundColor,

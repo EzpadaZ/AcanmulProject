@@ -1,4 +1,5 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
+import 'package:acanmul_app/pantallas/gms/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -128,7 +129,9 @@ class DetailsView extends StatelessWidget {
                     backgroundColor: kTextIconColor,
                     autofocus: false,
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(kNotImplementedSnackBar);
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => MapScreen(ubicaciones: paquete.ubicaciones)
+                      ));
                     },
                   ),
                 ],
@@ -224,7 +227,6 @@ class DetailsView extends StatelessWidget {
           )
         ],
       ),
-
     );
   }
 

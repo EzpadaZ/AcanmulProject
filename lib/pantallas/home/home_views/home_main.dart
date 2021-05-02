@@ -13,17 +13,13 @@ class MainView extends StatefulWidget {
 // FutureBuilder?
 // https://stackoverflow.com/questions/52128705/flutter-dart-looping-through-json-results-length-returns-0
 
-/**
- * Aight
- * PackageService.dart ya retorna todos los paquetes en una List<Paquete> para iterar entre todos los paquetes retornados
- * Todos los paquetes tienen sus definiciones y metodos para obtener sus cosas (titulo, desc, img, etc.)
- */
+/// Aight
+/// PackageService.dart ya retorna todos los paquetes en una List<Paquete> para iterar entre todos los paquetes retornados
+/// Todos los paquetes tienen sus definiciones y metodos para obtener sus cosas (titulo, desc, img, etc.)
 
 class _MainViewState extends State<MainView> {
   _MainViewState();
-  /**
-   * Probablemente estoy usando el FutureBuilder mal. :v whoknows.
-   */
+  /// Probablemente estoy usando el FutureBuilder mal. :v whoknows.
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +48,19 @@ class _MainViewState extends State<MainView> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.all(12.0),
-          child: Text(
-            "Mas vistos",
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text(
+              "Mas vistos",
+              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
+            ),
+            IconButton(icon: Icon(Icons.refresh_outlined, size: 35,),
+            onPressed: (){
+              setState(() {
+
+              });
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Pagina Actualizada'),duration: Duration(seconds: 1),));
+            },)],
           ),
         ),
         buildHorizontalList(context, paquetes),
