@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:acanmul_app/componentes/constants.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 class DetailsView extends StatelessWidget {
   Paquete paquete;
@@ -232,16 +233,19 @@ class DetailsView extends StatelessWidget {
 
   void _showLocationDetails(context, Ubicacion details){
     showModalBottomSheet(
+
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       context: context,
       builder: (BuildContext bc){
         return Container(
-          height: MediaQuery.of(context).size.height * 0.60,
+          height: MediaQuery.of(context).size.height * 0.90,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 Row(
                   children: [
+                    Spacer(),
                     Text(details.titulo,
                     style: TextStyle(color: kTextIconColor, fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
@@ -254,18 +258,45 @@ class DetailsView extends StatelessWidget {
                     ),
                   ],
                 ),
-                ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: [
-                    Text('si jala Xd')
-                  ],
-                )
+                SizedBox(height: 15,),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                      child: ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          Text('Significado', style: TextStyle(fontWeight: FontWeight.bold, fontSize:18),),
+                          SizedBox(height: 5,),
+                          Text(details.significado, softWrap: true,),
+                          SizedBox(height: 10,),
+                          Text('Acceso', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          SizedBox(height: 5,),
+                          Text(details.acceso, softWrap: true,),
+                          SizedBox(height: 10,),
+                          Text('Horario', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          SizedBox(height: 5,),
+                          Text(details.horario, softWrap: true,),
+                          SizedBox(height: 10,),
+                          Row(children: [
+                            Text('Costo de Entrada: ', style:TextStyle(fontWeight: FontWeight.bold, fontSize:18)),
+                            Text(_getMoneyFormat(details.costoAcceso),style: TextStyle(fontWeight: FontWeight.bold),)
+                          ],)
+                        ],
+                      ),
+                    ),
+                ),
               ],
             ),
           ),
         );
       }
     );
+  }
+  
+  String _getMoneyFormat(String number){
+    MoneyFormatterOutput fo = FlutterMoneyFormatter(amount: double.parse(number)).output;
+    return fo.symbolOnLeft + ' MXN';
   }
 }

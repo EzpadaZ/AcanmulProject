@@ -91,8 +91,24 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                 ),
               )
+            ),
+        Stack(
+          children: [
+            Positioned(
+              left: 20,
+              bottom: 40,
+              child: FloatingActionButton.extended(
+                label: Text('Costos'),
+                icon: Icon(Icons.attach_money, color: Colors.black,),
+                backgroundColor: kTextIconColor,
+                autofocus: false,
+                onPressed: (){
+                  _showCostsScreen(context);
+                },
+              ),
             )
-        ],
+          ],
+        )],
       ),
     );
   }
@@ -118,9 +134,38 @@ class _MapScreenState extends State<MapScreen> {
       markers.add(loc);
     }
 
-    print("Total de marcadores "+ markers.length.toString());
     final direc = await DirectionsRepo().getDirections(markers);
     _directions = direc;
     return markers;
+  }
+
+  void _showCostsScreen(context){
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext bc) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.60,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text('Detalles del Viaje', style: TextStyle(color: kPrimaryTextColor, fontSize: 20, fontWeight: FontWeight.bold)),
+                    Spacer(),
+                    IconButton(icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },)
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }
+    );
   }
 }

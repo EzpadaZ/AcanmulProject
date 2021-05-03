@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_session/flutter_session.dart';
 import '../../componentes/constants.dart';
 import 'dart:async';
@@ -51,7 +52,8 @@ class AuthService {
 
   static Future<String> getToken() async {
     String token = await SESSION.get('auth');
-    print('-----------------------------------\n'+'AuthSession Token: ' + token +'\n-----------------------------------');
+    if(kDebugMode)
+      print('-----------------------------------\n'+'AuthSession Token: ' + token +'\n-----------------------------------');
     kApiHeader['auth-token'] = token;
     return token;
   }
