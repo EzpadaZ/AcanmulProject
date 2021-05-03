@@ -279,7 +279,9 @@ class DetailsView extends StatelessWidget {
                           SizedBox(height: 5,),
                           Text(details.horario, softWrap: true,),
                           SizedBox(height: 10,),
-                          Row(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                             Text('Costo de Entrada: ', style:TextStyle(fontWeight: FontWeight.bold, fontSize:18)),
                             Text(_getMoneyFormat(details.costoAcceso),style: TextStyle(fontWeight: FontWeight.bold),)
                           ],)

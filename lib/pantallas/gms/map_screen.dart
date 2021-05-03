@@ -4,6 +4,7 @@ import 'package:acanmul_app/backend/gms/directions_repo.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:acanmul_app/componentes/constants.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
@@ -67,38 +68,13 @@ class _MapScreenState extends State<MapScreen> {
                 ),
             },
         ),
-          if(_directions!=null)
-            Positioned(
-              top: 30.0,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
-                decoration: BoxDecoration(
-                  color: kDarkAccentColor,
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0,2),
-                      blurRadius: 6.0
-                    )
-                  ]
-                ),
-                child: Text(
-                  (_directions.totalDistance +' , '+_directions.totalDuration),
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600
-                  ),
-                ),
-              )
-            ),
         Stack(
           children: [
             Positioned(
               left: 20,
               bottom: 40,
               child: FloatingActionButton.extended(
-                label: Text('Costos'),
+                label: Text('Detalles'),
                 icon: Icon(Icons.attach_money, color: Colors.black,),
                 backgroundColor: kTextIconColor,
                 autofocus: false,
@@ -153,6 +129,7 @@ class _MapScreenState extends State<MapScreen> {
               children: [
                 Row(
                   children: [
+                    Spacer(),
                     Text('Detalles del Viaje', style: TextStyle(color: kPrimaryTextColor, fontSize: 20, fontWeight: FontWeight.bold)),
                     Spacer(),
                     IconButton(icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
@@ -160,12 +137,89 @@ class _MapScreenState extends State<MapScreen> {
                       Navigator.of(context).pop();
                     },)
                   ],
-                )
+                ),
+                SizedBox(height: 15,),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: ListView(
+                      shrinkWrap: true,
+                      primary: false,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        customRow('KM Totales (redondo):', _directions.totalDistance),
+                        SizedBox(height: 15,),
+                        customRow('Tiempo (Sin Espera):',_directions.totalDuration),
+                        SizedBox(height: 15,),
+                        customRow('Costo por KM:', _getMoneyFormat(kPricePerKm.toString())),
+                        SizedBox(height: 15,),
+                        customRow('Total de Entradas:', _getMoneyFormat(_getTotalAccesos().toString())),
+                        SizedBox(height: 30,),
+                        customRow('Costo Total (Sin espera):', _getTravelPrice()),
+                        SizedBox(height: 30,),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 40),
+                  child: SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: OutlinedButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(bc).showSnackBar(kNotImplementedSnackBar);
+                        },
+                        style: OutlinedButton.styleFrom(
+                            primary: kAccentColor,
+                            side: BorderSide(color: kAccentColor)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.directions_car_outlined),
+                            SizedBox(width: 5,),
+                            Text('Agendar Viaje')
+                          ],
+                        )),
+                  ),
+                ),
               ],
             ),
           ),
         );
       }
+    );
+  }
+
+  int _getTotalAccesos() {
+    int costoEntradas = 0;
+    for(Ubicacion item in widget.ubicaciones){
+      costoEntradas += int.parse(item.costoAcceso);
+    }
+    return costoEntradas;
+  }
+
+  String _getTravelPrice() {
+    int totalaccesos = _getTotalAccesos();
+    int km = int.parse(_directions.totalDistance.replaceAll('km', '').trim());
+    double total = km * kPricePerKm;
+    return _getMoneyFormat((total+totalaccesos).toString());
+  }
+
+  String _getMoneyFormat(String number) {
+    MoneyFormatterOutput fo = FlutterMoneyFormatter(amount: double.parse(number)).output;
+    return fo.symbolOnLeft + ' MXN';
+  }
+
+  Widget customRow(String label, String result){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryTextColor, fontSize: 18)),
+        Text(result, style: TextStyle(fontWeight: FontWeight.bold, color: kSecondaryTextColor, fontSize: 18),)
+      ],
     );
   }
 }

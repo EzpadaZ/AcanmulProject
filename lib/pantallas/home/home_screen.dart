@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileView(),
     MainView(),
     ContactView(),
-    DebugView(),
   ];
 
   void _onItemTap(int index) {
@@ -47,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Contacto"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Debug")
         ],
         type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.white,

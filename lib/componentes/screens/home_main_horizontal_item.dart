@@ -1,6 +1,7 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:acanmul_app/pantallas/home/home_views/home_package_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 class HorizontalItem extends StatelessWidget {
   final Paquete paquete;
@@ -51,4 +52,6 @@ class HorizontalItem extends StatelessWidget {
       ),
     );
   }
+
+
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
 import 'package:acanmul_app/componentes/constants.dart';
@@ -41,8 +40,9 @@ class PackageService {
         // fk
         paquetes.add(Paquete.fromJson(i));
       }
-      if(kDebugMode)
+      if(kDebugMode) {
         print("We got (amnt of pkgs): " + paquetes.length.toString());
+      }
     } catch (err) {
       print(err);
     }
