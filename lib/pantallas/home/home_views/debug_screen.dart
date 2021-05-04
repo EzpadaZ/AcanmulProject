@@ -1,6 +1,8 @@
 import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:flutter/material.dart';
 
+// OBSOLETO.
+
 class DebugView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

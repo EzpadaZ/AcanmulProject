@@ -7,28 +7,14 @@ import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'AuthService.dart';
 
 class PackageService {
-  // pronto :v
   static final SESSION = FlutterSession();
   Map<String, String> kApiHeader;
-
-  /**
-   * Obtener todos los paquetes
-   * Obtener 1 paquete
-   * 
-   * 1) Obtener todos los paquetes, iterar el JSON y hacer un mapa.
-   */
 
   PackageService() {
     print('Package Service initiated');
   }
 
-  dynamic getPackageInfo(String id) {
-    //aqui retornare algo :v maniana
-  }
-
   static Future<List<Paquete>> getAllPackages() async {
-    // No se que debe retornar.
-    // el HTTP Request retorna un JSON Array
     List<Paquete> paquetes = [];
     try {
       var res = await http.get(Uri.http(kApiBackendUrl, 'api/paquete'),

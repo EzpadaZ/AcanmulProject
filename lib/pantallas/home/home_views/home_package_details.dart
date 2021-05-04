@@ -9,7 +9,6 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 class DetailsView extends StatelessWidget {
   Paquete paquete;
   List<Widget> imageSlider = [];
-
   DetailsView({this.paquete});
 
   void inicializarSlider() {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:acanmul_app/backend/modelos/User/User.dart';
 import 'package:flutter_session/flutter_session.dart';
 import '../../componentes/constants.dart';
 import 'dart:async';
@@ -57,6 +58,19 @@ class AuthService {
     }
     kApiHeader['auth-token'] = token;
     return token;
+  }
+
+  static Future<User> getCurrentUser() async {
+    String token = await AuthService.getToken();
+    try{
+      var res = await http.get(Uri.parse('http://'+kApiBackendUrl+'/auth/user/'+token), headers: kApiHeader);
+      var decodedAnswer = jsonDecode(res.body);
+      print(decodedAnswer);
+      User a = User.fromJson(decodedAnswer);
+      return a;
+    }catch(e){
+      print(e);
+    }
   }
 
   static removeToken() async {

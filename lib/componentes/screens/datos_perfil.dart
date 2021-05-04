@@ -13,7 +13,7 @@ class DatosPerfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
       child: Row(
         children: <Widget>[
           Container(
@@ -34,6 +34,7 @@ class DatosPerfil extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   informacion,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
