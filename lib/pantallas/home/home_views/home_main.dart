@@ -1,5 +1,6 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:acanmul_app/backend/services/AuthService.dart';
+import 'package:acanmul_app/componentes/constants.dart';
 import 'package:acanmul_app/componentes/screens/home_main_horizontal_item.dart';
 import 'package:flutter/material.dart';
 import '../../../backend/services/PackageService.dart';
@@ -37,37 +38,42 @@ class _MainViewState extends State<MainView> {
     return await PackageService.getAllPackages();
   }
 
-  buildMainView(List<Paquete> paquetes) {
-    return ListView(
-      physics: NeverScrollableScrollPhysics(),
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(
-              "Mas vistos",
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
-            ),
-            IconButton(icon: Icon(Icons.refresh_outlined, size: 35,),
-            onPressed: (){
-              setState(() {
+  Future _refreshData() async{
+    await Future.delayed(Duration(seconds: 3));
+    setState(() {
+      // nada pal refresh
+    });
+  }
 
-              });
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Pagina Actualizada'),duration: Duration(seconds: 1),));
-            },)],
+  buildMainView(List<Paquete> paquetes) {
+    return RefreshIndicator(
+      onRefresh: _refreshData,
+      color: kAccentColor,
+      backgroundColor: Colors.white,
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text(
+                "Mas vistos",
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
+              ),
+              ],
+            ),
           ),
-        ),
-        buildHorizontalList(context, paquetes),
-        Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Text(
-            'Todos los paquetes',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          buildHorizontalList(context, paquetes),
+          Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              'Todos los paquetes',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
           ),
-        ),
-        buildVerticalList(context, paquetes)
-      ],
+          buildVerticalList(context, paquetes)
+        ],
+      ),
     );
   }
 

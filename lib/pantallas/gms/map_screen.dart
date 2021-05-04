@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
       future: _setMarkerArray(),
       builder: (_, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator(),);
         }else if(snapshot.hasData){
           final markers = snapshot.data as Set<Marker>;
           return buildMapView(markers);
