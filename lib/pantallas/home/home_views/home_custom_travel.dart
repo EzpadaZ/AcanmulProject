@@ -52,8 +52,6 @@ class _CustomTravelViewState extends State<CustomTravelView> {
   }
 
   buildCustomTravelView(List<Ubicacion> ubicaciones) {
-    Ubicacion current = ubicaciones[0];
-
     return RefreshIndicator(
       child: ListView(
         children: [
@@ -84,7 +82,7 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.55,
                     child: ReusableCard(
-                        color: kSecondaryTextColor,
+                        color: kPrimaryTextColor,
                         cardChild: ListView.builder(
                           primary: false,
                           scrollDirection: Axis.vertical,

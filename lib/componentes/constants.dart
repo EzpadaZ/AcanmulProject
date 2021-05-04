@@ -16,6 +16,7 @@ const SnackBar kNotImplementedSnackBar = SnackBar(
   duration: Duration(seconds: 2),
 );
 const double kPricePerKm = 8.0;
+const double kPricePerWaitingHour = 100.0;
 const bool kDebugMode = true;
 const String kApiBackendUrl =
     '192.168.1.159:5000'; // modifica esto con el valor correspondiente.

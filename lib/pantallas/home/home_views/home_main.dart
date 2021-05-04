@@ -46,34 +46,30 @@ class _MainViewState extends State<MainView> {
   }
 
   buildMainView(List<Paquete> paquetes) {
-    return RefreshIndicator(
-      onRefresh: _refreshData,
-      color: kAccentColor,
-      backgroundColor: Colors.white,
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(
-                "Mas vistos",
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
-              ),
-              ],
+    return ListView(
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text(
+              "Mas vistos",
+              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
             ),
+            ],
           ),
-          buildHorizontalList(context, paquetes),
-          Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Todos los paquetes',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-            ),
+        ),
+        buildHorizontalList(context, paquetes),
+        Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text(
+            'Todos los paquetes',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
-          buildVerticalList(context, paquetes)
-        ],
-      ),
+        ),
+        buildVerticalList(context, paquetes)
+      ],
     );
   }
 
