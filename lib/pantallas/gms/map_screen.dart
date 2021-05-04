@@ -88,14 +88,18 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
   }
-  
+
+
+  // Agregar menu a los marcadores para tiempo de espera en Hrs.
+  // Tienen un onTap ESTUPIDO.
+
   Future<Set<Marker>> _setMarkerArray() async {
     Set<Marker> markers = {};
 
     Marker origenDestino = Marker(
       markerId: MarkerId('Salida/Destino'),
       position: LatLng(19.844732,-90.532825), //parque frente al manuel campos
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
 
     markers.add(origenDestino);
@@ -178,7 +182,7 @@ class _MapScreenState extends State<MapScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.directions_car_outlined),
+                            Icon(Icons.today_outlined),
                             SizedBox(width: 5,),
                             Text('Agendar Viaje')
                           ],

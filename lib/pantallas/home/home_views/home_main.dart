@@ -1,4 +1,5 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
+import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:acanmul_app/componentes/screens/home_main_horizontal_item.dart';
 import 'package:flutter/material.dart';
 import '../../../backend/services/PackageService.dart';
@@ -32,6 +33,7 @@ class _MainViewState extends State<MainView> {
   }
 
   Future<List<Paquete>> _getPkgs() async {
+    String token = await AuthService.getToken();
     return await PackageService.getAllPackages();
   }
 
