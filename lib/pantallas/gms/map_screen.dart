@@ -2,6 +2,7 @@
 import 'package:acanmul_app/backend/gms/Directions.dart';
 import 'package:acanmul_app/backend/gms/directions_repo.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
+import 'package:acanmul_app/componentes/screens/custom_row_input.dart';
 import 'package:flutter/material.dart';
 import 'package:acanmul_app/componentes/constants.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
@@ -27,8 +28,16 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void dispose() {
     _googleMapController.dispose();
-    print('Map Screen Disposed');
+    resetTimings();
     super.dispose();
+  }
+
+  void resetTimings(){
+    for(Ubicacion item in widget.ubicaciones){
+      item.tiempoEspera = 0;
+    }
+    if(kDebugMode)
+      print("Timings have been reset at map dispose.");
   }
 
   @override
@@ -37,7 +46,7 @@ class _MapScreenState extends State<MapScreen> {
       future: _setMarkerArray(),
       builder: (_, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator(),);
         }else if(snapshot.hasData){
           final markers = snapshot.data as Set<Marker>;
           return buildMapView(markers);
@@ -88,14 +97,18 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
   }
-  
+
+
+  // Agregar menu a los marcadores para tiempo de espera en Hrs.
+  // Tienen un onTap ESTUPIDO.
+
   Future<Set<Marker>> _setMarkerArray() async {
     Set<Marker> markers = {};
 
     Marker origenDestino = Marker(
       markerId: MarkerId('Salida/Destino'),
       position: LatLng(19.844732,-90.532825), //parque frente al manuel campos
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
 
     markers.add(origenDestino);
@@ -105,7 +118,10 @@ class _MapScreenState extends State<MapScreen> {
         markerId: MarkerId(item.titulo),
         infoWindow: InfoWindow(title: item.titulo),
         position: LatLng(double.parse(item.geodata[0].lat), double.parse(item.geodata[0].lng)),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        onTap: () {
+          _showLocationCustomization(context, item);
+        }
       );
       markers.add(loc);
     }
@@ -115,14 +131,59 @@ class _MapScreenState extends State<MapScreen> {
     return markers;
   }
 
+  _showLocationCustomization(context, Ubicacion index){
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: Colors.white,
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Spacer(),
+                      Text('Modificar visita', style: TextStyle(color: kPrimaryTextColor, fontSize: 20, fontWeight: FontWeight.bold)),
+                      Spacer(),
+                      IconButton(icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },)
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          customRowInput('Tiempo de espera (horas):', index),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   void _showCostsScreen(context){
     showModalBottomSheet(
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.60,
+          height: MediaQuery.of(context).size.height * 0.80,
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child: Column(
@@ -149,13 +210,17 @@ class _MapScreenState extends State<MapScreen> {
                       children: [
                         customRow('KM Totales (redondo):', _directions.totalDistance),
                         SizedBox(height: 15,),
-                        customRow('Tiempo (Sin Espera):',_directions.totalDuration),
+                        customRow('Horas de espera totales:', _getTotalEspera().toString()+" hrs"),
+                        SizedBox(height: 15,),
+                        customRow('Tiempo (solo viaje):',_directions.totalDuration),
                         SizedBox(height: 15,),
                         customRow('Costo por KM:', _getMoneyFormat(kPricePerKm.toString())),
                         SizedBox(height: 15,),
+                        customRow('Costo por hr/espera', _getMoneyFormat(kPricePerWaitingHour.toString())),
+                        SizedBox(height: 15,),
                         customRow('Total de Entradas:', _getMoneyFormat(_getTotalAccesos().toString())),
                         SizedBox(height: 30,),
-                        customRow('Costo Total (Sin espera):', _getTravelPrice()),
+                        customRow('Costo Total (con espera):', _getTravelPrice()),
                         SizedBox(height: 30,),
                       ],
                     ),
@@ -178,7 +243,7 @@ class _MapScreenState extends State<MapScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.directions_car_outlined),
+                            Icon(Icons.today_outlined),
                             SizedBox(width: 5,),
                             Text('Agendar Viaje')
                           ],
@@ -201,11 +266,20 @@ class _MapScreenState extends State<MapScreen> {
     return costoEntradas;
   }
 
+  int _getTotalEspera() {
+    int costoEspera = 0;
+    for(Ubicacion item in widget.ubicaciones){
+      costoEspera += item.tiempoEspera;
+    }
+    return costoEspera;
+  }
+
   String _getTravelPrice() {
+    double totalEspera = _getTotalEspera() * kPricePerWaitingHour;
     int totalaccesos = _getTotalAccesos();
     int km = int.parse(_directions.totalDistance.replaceAll('km', '').trim());
     double total = km * kPricePerKm;
-    return _getMoneyFormat((total+totalaccesos).toString());
+    return _getMoneyFormat((total+totalaccesos+totalEspera).toString());
   }
 
   String _getMoneyFormat(String number) {
@@ -219,6 +293,18 @@ class _MapScreenState extends State<MapScreen> {
       children: [
         Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryTextColor, fontSize: 18)),
         Text(result, style: TextStyle(fontWeight: FontWeight.bold, color: kSecondaryTextColor, fontSize: 18),)
+      ],
+    );
+  }
+  Widget customRowInput(String label, Ubicacion index){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryTextColor, fontSize: 18)),
+        Spacer(),
+        Container(
+          child: CustomRowInput(item: index),
+        )
       ],
     );
   }

@@ -36,6 +36,7 @@ dependencies:
   carousel_pro: ^1.0.0
   carousel_slider: ^3.0.0
   flutter_money_formatter: ^0.8.3
+  salomon_bottom_bar: ^3.0.0
 
 
 dev_dependencies:

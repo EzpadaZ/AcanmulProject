@@ -1,5 +1,7 @@
 import 'package:acanmul_app/backend/services/AuthService.dart';
+import 'package:acanmul_app/pantallas/home/home_views/home_custom_travel.dart';
 import 'package:flutter/material.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import './home_views/home_main.dart';
 import './home_views/home_profile.dart';
 import './home_views/home_contact.dart';
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> vistas = <Widget>[
     ProfileView(),
     MainView(),
+    CustomTravelView(),
     ContactView(),
   ];
 
@@ -41,18 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       body: SafeArea(child: vistas.elementAt(_selectedIndex)),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Contacto"),
+      bottomNavigationBar: SalomonBottomBar(
+        items: [
+          SalomonBottomBarItem(icon: Icon(Icons.person), title: Text('Perfil')),
+          SalomonBottomBarItem(icon: Icon(Icons.home), title: Text('Principal')),
+          SalomonBottomBarItem(icon: Icon(Icons.map_outlined), title: Text('Personalizado')),
+          SalomonBottomBarItem(icon: Icon(Icons.phone), title: Text('Contacto')),
         ],
-        type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
-        elevation: 5,
-        iconSize: 30,
         onTap: _onItemTap,
       ),
     );

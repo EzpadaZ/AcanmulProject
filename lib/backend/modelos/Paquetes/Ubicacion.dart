@@ -1,4 +1,5 @@
 class Ubicacion {
+  int tiempoEspera = 0;
   String titulo,
       significado,
       acceso,
@@ -19,6 +20,10 @@ class Ubicacion {
       this.imagen,
       this.tipo,
       this.geodata});
+
+  void setTiempoEspera(int horas){
+    tiempoEspera = horas;
+  }
 
   // factory // fromJson // toJson.
   factory Ubicacion.fromJson(Map<String, dynamic> json) => Ubicacion(

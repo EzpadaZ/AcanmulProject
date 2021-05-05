@@ -52,6 +52,4 @@ class HorizontalItem extends StatelessWidget {
       ),
     );
   }
-
-
 }

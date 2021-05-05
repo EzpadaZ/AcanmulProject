@@ -125,7 +125,7 @@ class DetailsView extends StatelessWidget {
                       )),
                   FloatingActionButton.extended(
                     label: Text('Ver costo y ruta'),
-                    icon: Icon(Icons.commute),
+                    icon: Icon(Icons.explore_outlined, size: 33,),
                     backgroundColor: kTextIconColor,
                     autofocus: false,
                     onPressed: () {
