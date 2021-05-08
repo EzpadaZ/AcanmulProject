@@ -1,8 +1,8 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
 import 'package:acanmul_app/backend/services/UbicacionService.dart';
 import 'package:acanmul_app/componentes/constants.dart';
-import 'package:acanmul_app/componentes/screens/custom_travel_tile.dart';
-import 'package:acanmul_app/componentes/screens/reusable_card.dart';
+import 'package:acanmul_app/componentes/screen_components//custom_travel_tile.dart';
+import 'package:acanmul_app/componentes/screen_components//reusable_card.dart';
 import 'package:acanmul_app/pantallas/gms/map_screen.dart';
 import 'package:flutter/material.dart';
 

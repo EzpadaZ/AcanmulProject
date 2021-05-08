@@ -2,7 +2,7 @@
 import 'package:acanmul_app/backend/gms/Directions.dart';
 import 'package:acanmul_app/backend/gms/directions_repo.dart';
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
-import 'package:acanmul_app/componentes/screens/custom_row_input.dart';
+import 'package:acanmul_app/componentes/screen_components/custom_row_input.dart';
 import 'package:flutter/material.dart';
 import 'package:acanmul_app/componentes/constants.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';

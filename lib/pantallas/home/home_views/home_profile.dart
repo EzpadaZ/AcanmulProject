@@ -1,7 +1,7 @@
 import 'package:acanmul_app/backend/modelos/User/User.dart';
 import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:flutter/material.dart';
-import 'package:acanmul_app/componentes/screens/datos_perfil.dart';
+import 'package:acanmul_app/componentes/screen_components/datos_perfil.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -11,24 +11,39 @@ class ProfileView extends StatefulWidget {
 // AHORITA REGRESO.
 
 class _ProfileViewState extends State<ProfileView> {
+  Future<User> _user;
+
+  void initState() {
+    super.initState();
+    _user = _getUserData();
+  }
+
+  Future<User> _getUserData() {
+    return AuthService.getAsyncUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _obtenerInfo(),
-      builder: (_, snapshot){
-        if(snapshot.connectionState == ConnectionState.waiting){
+      future: AuthService.getAsyncUser(),
+      builder: (_, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
-        }else if(snapshot.hasData){
+        } else if (snapshot.hasData) {
           final user = snapshot.data as User;
           return buildProfileView(user);
-        }else{
-          return Text(snapshot.error.toString());
+        } else {
+          return Container(
+            child: Center(
+              child: Text(snapshot.error.toString()),
+            ),
+          );
         }
       },
     );
   }
 
-  buildProfileView(User a){
+  buildProfileView(User a) {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -48,34 +63,32 @@ class _ProfileViewState extends State<ProfileView> {
           label: 'Email:',
           informacion: a.email,
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         SizedBox(
           width: 200,
           height: 50,
           child: OutlinedButton(
-              onPressed: (){
+              onPressed: () {
                 // cerrar sesion.
                 AuthService.removeToken();
                 Navigator.pushReplacementNamed(context, '/auth/login');
               },
               style: OutlinedButton.styleFrom(
-                primary: Colors.red,
-                side: BorderSide(color: Colors.red)
-              ),
+                  primary: Colors.red, side: BorderSide(color: Colors.red)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.logout),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Text('Cerrar Sesion')
                 ],
               )),
         )
       ],
     );
-  }
-
-  Future<User> _obtenerInfo() async {
-    return await AuthService.getCurrentUser();
   }
 }

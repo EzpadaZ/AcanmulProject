@@ -50,27 +50,27 @@ class AuthService {
     return await SESSION.set('auth', token);
   }
 
+  static setUser(User usr) async {
+    print('User set');
+    return await SESSION.set('userinfo', usr);
+  }
+
+  static Future<User> getAsyncUser() async {
+    var u = await SESSION.get('userinfo');
+    User a = User.fromJson(u);
+    return a;
+  }
+
   static Future<String> getToken() async {
     String token = await SESSION.get('auth');
-    if(kDebugMode) {
-      print('-----------------------------------\n' + 'AuthSession Token: ' +
-          token + '\n-----------------------------------');
+    if (kDebugMode && token != null) {
+      print('-----------------------------------\n' +
+          'AuthSession Token: ' +
+          token +
+          '\n-----------------------------------');
     }
     kApiHeader['auth-token'] = token;
     return token;
-  }
-
-  static Future<User> getCurrentUser() async {
-    String token = await AuthService.getToken();
-    try{
-      var res = await http.get(Uri.parse('http://'+kApiBackendUrl+'/auth/user/'+token), headers: kApiHeader);
-      var decodedAnswer = jsonDecode(res.body);
-      print(decodedAnswer);
-      User a = User.fromJson(decodedAnswer);
-      return a;
-    }catch(e){
-      print(e);
-    }
   }
 
   static removeToken() async {

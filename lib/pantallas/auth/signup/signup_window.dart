@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../componentes/constants.dart';
-import '../../../componentes/screens/reusable_card.dart';
+import '../../../componentes/screen_components//reusable_card.dart';
 import '../../../backend/services/AuthService.dart';
 import 'dart:convert';
 

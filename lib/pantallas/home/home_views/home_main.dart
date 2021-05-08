@@ -1,10 +1,10 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Paquete.dart';
 import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:acanmul_app/componentes/constants.dart';
-import 'package:acanmul_app/componentes/screens/home_main_horizontal_item.dart';
+import 'package:acanmul_app/componentes/screen_components//home_main_horizontal_item.dart';
 import 'package:flutter/material.dart';
 import '../../../backend/services/PackageService.dart';
-import 'package:acanmul_app/componentes/screens/reusable_preview.dart';
+import 'package:acanmul_app/componentes/screen_components//reusable_preview.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -15,16 +15,17 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   _MainViewState();
+  Future<List<Paquete>> _pkgs;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _getPkgs(),
-      builder: (_, snapshot) {
+      future: _pkgs,
+      builder: (_, AsyncSnapshot<List<Paquete>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
-          final paquetes = snapshot.data as List<Paquete>;
+          final paquetes = snapshot.data;
           return buildMainView(paquetes);
         } else {
           return Text(snapshot.error.toString());
@@ -33,12 +34,18 @@ class _MainViewState extends State<MainView> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _pkgs = _getPkgs();
+  }
+
   Future<List<Paquete>> _getPkgs() async {
-    String token = await AuthService.getToken();
+    //String token = await AuthService.getToken();
     return await PackageService.getAllPackages();
   }
 
-  Future _refreshData() async{
+  Future _refreshData() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
       // nada pal refresh
@@ -53,10 +60,11 @@ class _MainViewState extends State<MainView> {
           padding: EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(
-              "Mas vistos",
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
-            ),
+            children: [
+              Text(
+                "Mas vistos",
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
+              ),
             ],
           ),
         ),

@@ -1,7 +1,9 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Images.dart';
+import 'package:acanmul_app/backend/modelos/User/User.dart';
+import 'package:acanmul_app/backend/services/AuthService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:acanmul_app/componentes/screens/datos_perfil.dart';
+import 'package:acanmul_app/componentes/screen_components//datos_perfil.dart';
 
 // Pagina de contacto, no se que hace esto aun asi que sera un statelesswidget.
 
@@ -31,7 +33,8 @@ class _ContactViewState extends State<ContactView> {
               padding: const EdgeInsets.all(14.0),
               child: CircleAvatar(
                 radius: 55.0,
-                backgroundImage: NetworkImage(''),
+                backgroundImage:
+                    NetworkImage('https://i.stack.imgur.com/l60Hf.png'),
               ),
             ),
             SizedBox(
@@ -65,6 +68,21 @@ class _ContactViewState extends State<ContactView> {
         ),
         DatosPerfil(label: 'Telefono:', informacion: telefono),
         DatosPerfil(label: 'Correo:', informacion: email),
+        TextButton(
+          onPressed: () {
+            AuthService.removeToken();
+            Navigator.pushReplacementNamed(context, '/auth/login');
+          },
+          child: Text("Emergency Logout"),
+        ),
+        TextButton(
+          onPressed: () async {
+            User a = await AuthService.getAsyncUser();
+            print(a.role);
+            print(a.token);
+          },
+          child: Text("Ver Info"),
+        )
       ],
     );
   }

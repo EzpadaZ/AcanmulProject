@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../componentes/screens/reusable_card.dart';
+import '../../../componentes/screen_components//reusable_card.dart';
 import '../../../componentes/constants.dart';
 import '../../../backend/services/AuthService.dart';
+import 'package:acanmul_app/backend/modelos/User/User.dart';
 import 'dart:convert';
 
 class LoginWindow extends StatefulWidget {
@@ -18,17 +19,25 @@ class _LoginWindowState extends State<LoginWindow> {
   var authInfo;
 
   dynamic login(BuildContext context) async {
-    authInfo = AuthService();
-    final res = await authInfo.login(
-        emailTextController.text, passwordTextController.text);
+    try {
+      authInfo = AuthService();
+      final res = await authInfo.login(
+          emailTextController.text, passwordTextController.text);
 
-    var data = jsonDecode(res) as Map<String, dynamic>;
+      var data = jsonDecode(res) as Map<String, dynamic>;
+      var user = (data['user'] as List).elementAt(0);
+      var ux = User.fromJson(user);
+      print(ux.name + ' ' + ux.token + ' ' + ux.role.toString());
 
-    if (data['status'] == 200) {
-      print("Status 200 Received.");
-      AuthService.setToken(data['token']);
-      Navigator.pushReplacementNamed(context, '/home');
-      return data;
+      if (data['status'] == 200) {
+        print("Status 200 Received.");
+        AuthService.setToken(ux.token);
+        AuthService.setUser(ux);
+        Navigator.pushReplacementNamed(context, '/home');
+        return data;
+      }
+    } catch (err) {
+      print(err);
     }
   }
 
