@@ -57,7 +57,7 @@ class _TravelTileState extends State<TravelTile> {
             }else{
               widget.selected.remove(widget.ubicacion);
             }
-            print(_isAdded);
+            //print(_isAdded);
           })
         ],
       ),
