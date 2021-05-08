@@ -31,7 +31,7 @@ class _ContactViewState extends State<ContactView> {
               padding: const EdgeInsets.all(14.0),
               child: CircleAvatar(
                 radius: 55.0,
-                backgroundImage: NetworkImage(''),
+                backgroundImage: NetworkImage('https://i.stack.imgur.com/l60Hf.png'),
               ),
             ),
             SizedBox(
