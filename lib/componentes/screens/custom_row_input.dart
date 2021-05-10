@@ -16,9 +16,9 @@ class _CustomRowInputState extends State<CustomRowInput> {
     return Row(
       children: [
         TextButton(
-          onPressed: (){
+          onPressed: () {
             setState(() {
-              if(widget.item.tiempoEspera >= 0){
+              if (widget.item.tiempoEspera > 0) {
                 widget.item.tiempoEspera--;
               }
             });
@@ -26,10 +26,14 @@ class _CustomRowInputState extends State<CustomRowInput> {
           child: Icon(Icons.remove, color: Colors.red),
         ),
         Container(
-          child: Text(widget.item.tiempoEspera.toString(), style: TextStyle(color: kPrimaryTextColor, fontWeight: FontWeight.bold),),
+          child: Text(
+            widget.item.tiempoEspera.toString(),
+            style: TextStyle(
+                color: kPrimaryTextColor, fontWeight: FontWeight.bold),
+          ),
         ),
         TextButton(
-          onPressed: (){
+          onPressed: () {
             setState(() {
               widget.item.tiempoEspera++;
             });

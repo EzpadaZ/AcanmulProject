@@ -17,9 +17,9 @@ const SnackBar kNotImplementedSnackBar = SnackBar(
 );
 const double kPricePerKm = 8.0;
 const double kPricePerWaitingHour = 100.0;
-const bool kDebugMode = true;
+const bool kDebugMode = false;
 const String kApiBackendUrl =
-    '192.168.1.72:5000'; // modifica esto con el valor correspondiente.
+    '192.168.1.159:5000'; // modifica esto con el valor correspondiente.
 const Map<String, String> kDefaultHeaders = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'

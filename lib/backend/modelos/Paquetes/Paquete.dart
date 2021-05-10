@@ -1,7 +1,5 @@
 import 'package:acanmul_app/backend/modelos/Paquetes/Ubicacion.dart';
 
-import 'Images.dart';
-
 class Paquete {
   String id;
   String titulo;

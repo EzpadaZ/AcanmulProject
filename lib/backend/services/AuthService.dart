@@ -52,9 +52,11 @@ class AuthService {
 
   static Future<String> getToken() async {
     String token = await SESSION.get('auth');
-    if(kDebugMode) {
-      print('-----------------------------------\n' + 'AuthSession Token: ' +
-          token + '\n-----------------------------------');
+    if (kDebugMode) {
+      print('-----------------------------------\n' +
+          'AuthSession Token: ' +
+          token +
+          '\n-----------------------------------');
     }
     kApiHeader['auth-token'] = token;
     return token;
@@ -62,13 +64,15 @@ class AuthService {
 
   static Future<User> getCurrentUser() async {
     String token = await AuthService.getToken();
-    try{
-      var res = await http.get(Uri.parse('http://'+kApiBackendUrl+'/auth/user/'+token), headers: kApiHeader);
+    try {
+      var res = await http.get(
+          Uri.parse('http://' + kApiBackendUrl + '/auth/user/' + token),
+          headers: kApiHeader);
       var decodedAnswer = jsonDecode(res.body);
       print(decodedAnswer);
-      User a = User.fromJson(decodedAnswer);
-      return a;
-    }catch(e){
+      User temp = User.fromJson(decodedAnswer);
+      return temp;
+    } catch (e) {
       print(e);
     }
   }

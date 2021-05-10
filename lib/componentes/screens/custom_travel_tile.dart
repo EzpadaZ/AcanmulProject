@@ -13,7 +13,10 @@ class TravelTile extends StatefulWidget {
 
 class _TravelTileState extends State<TravelTile> {
   bool _isAdded = false;
-  Icon added = Icon(Icons.check, color: Colors.green,);
+  Icon added = Icon(
+    Icons.check,
+    color: Colors.green,
+  );
   Icon not_added = Icon(Icons.add, color: Colors.grey);
 
   @override
@@ -32,33 +35,39 @@ class _TravelTileState extends State<TravelTile> {
             ),
           ),
           SizedBox(
-            width: 25.0,
+            width: 15.0,
           ),
           Column(
             children: <Widget>[
-              Text(
-                widget.ubicacion.titulo,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
+              SizedBox(
+                width: 150,
+                child: Text(
+                  widget.ubicacion.titulo,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
             ],
           ),
           Spacer(),
-          IconButton(icon: _isAdded ? added : not_added, onPressed: (){
-            setState(() {
-              _isAdded = !_isAdded;
-            });
-            if(_isAdded){
-              widget.selected.add(widget.ubicacion);
-            }else{
-              widget.selected.remove(widget.ubicacion);
-            }
-            print(_isAdded);
-          })
+          IconButton(
+              icon: _isAdded ? added : not_added,
+              onPressed: () {
+                setState(() {
+                  _isAdded = !_isAdded;
+                });
+                if (_isAdded) {
+                  widget.selected.add(widget.ubicacion);
+                } else {
+                  widget.selected.remove(widget.ubicacion);
+                }
+                print(_isAdded);
+              })
         ],
       ),
     );

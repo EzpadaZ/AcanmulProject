@@ -15,20 +15,35 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _obtenerInfo(),
-      builder: (_, snapshot){
-        if(snapshot.connectionState == ConnectionState.waiting){
+      builder: (_, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
-        }else if(snapshot.hasData){
+        } else if (snapshot.hasData) {
           final user = snapshot.data as User;
           return buildProfileView(user);
-        }else{
-          return Text(snapshot.error.toString());
+        } else {
+          return Container(
+            child: Center(
+              child: Column(
+                children: [
+                  Text('Parece que tu token tiene un problema.'),
+                  TextButton(
+                    onPressed: () {
+                      AuthService.removeToken();
+                      Navigator.pushReplacementNamed(context, '/auth/login');
+                    },
+                    child: Text('Salida de Emergencia'),
+                  )
+                ],
+              ),
+            ),
+          );
         }
       },
     );
   }
 
-  buildProfileView(User a){
+  buildProfileView(User a) {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -48,25 +63,27 @@ class _ProfileViewState extends State<ProfileView> {
           label: 'Email:',
           informacion: a.email,
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         SizedBox(
           width: 200,
           height: 50,
           child: OutlinedButton(
-              onPressed: (){
+              onPressed: () {
                 // cerrar sesion.
                 AuthService.removeToken();
                 Navigator.pushReplacementNamed(context, '/auth/login');
               },
               style: OutlinedButton.styleFrom(
-                primary: Colors.red,
-                side: BorderSide(color: Colors.red)
-              ),
+                  primary: Colors.red, side: BorderSide(color: Colors.red)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.logout),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Text('Cerrar Sesion')
                 ],
               )),
