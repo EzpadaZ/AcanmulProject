@@ -16,7 +16,7 @@ class CustomTravelView extends StatefulWidget {
 class _CustomTravelViewState extends State<CustomTravelView> {
   Future<List<Ubicacion>> _lista;
   List<Ubicacion> _ubicaciones = [];
-  List<Ubicacion> _seleccionadas = [];
+  final Set _saved = Set();
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +89,36 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                           shrinkWrap: true,
                           itemCount: _ubicaciones.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return TravelTile(
-                              ubicacion: _ubicaciones[index],
-                              selected: _seleccionadas,
-                            );
+                            return CheckboxListTile(
+                                value: _saved.contains(index),
+                                title: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.network(
+                                        ubicaciones[index].imagen,
+                                        height: 64.0,
+                                        width: 64.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                        width: 150,
+                                        child: Text(ubicaciones[index].titulo))
+                                  ],
+                                ),
+                                onChanged: (val) {
+                                  setState(() {
+                                    if (val) {
+                                      _saved.add(index);
+                                    } else {
+                                      _saved.remove(index);
+                                    }
+                                  });
+                                });
                           },
                         )),
                   ),
@@ -115,7 +141,9 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                             SizedBox(
                               width: 5,
                             ),
-                            Text('Revisar Viaje',)
+                            Text(
+                              'Revisar Viaje',
+                            )
                           ],
                         ),
                       ),
@@ -143,15 +171,23 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                   Row(
                     children: [
                       Spacer(),
-                      Text('Detalles de Lista', style: TextStyle(color: kTextIconColor, fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text('Detalles de Lista',
+                          style: TextStyle(
+                              color: kTextIconColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
                       Spacer(),
-                      IconButton(icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
+                      IconButton(
+                        icon: Icon(Icons.cancel, color: kAccentColor, size: 25),
                         onPressed: () {
                           Navigator.of(context).pop();
-                        },)
+                        },
+                      )
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
@@ -160,7 +196,8 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                         primary: false,
                         scrollDirection: Axis.vertical,
                         children: [
-                          customRow('Total de Ubicaciones:', _seleccionadas.length.toString()),
+                          customRow('Total de Ubicaciones:',
+                              _saved.length.toString()),
                         ],
                       ),
                     ),
@@ -171,25 +208,29 @@ class _CustomTravelViewState extends State<CustomTravelView> {
                       width: 200,
                       height: 50,
                       child: OutlinedButton(
-                          onPressed: (){
-                            if(_seleccionadas.length>0){
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => MapScreen(ubicaciones: _seleccionadas)
-                              ));
-                            }else{
+                          onPressed: () {
+                            if (_saved.length > 0) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MapScreen(
+                                          ubicaciones: convertList(_saved))));
+                            } else {
                               Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(kNotImplementedSnackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(kNotImplementedSnackBar);
                             }
                           },
                           style: OutlinedButton.styleFrom(
                               primary: kTextIconColor,
-                              side: BorderSide(color: kTextIconColor)
-                          ),
+                              side: BorderSide(color: kTextIconColor)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.today_outlined),
-                              SizedBox(width: 5,),
+                              SizedBox(
+                                width: 5,
+                              ),
                               Text('Revisar Ruta')
                             ],
                           )),
@@ -202,12 +243,30 @@ class _CustomTravelViewState extends State<CustomTravelView> {
         });
   }
 
-  Widget customRow(String label, String result){
+  List<Ubicacion> convertList(Set a) {
+    List<Ubicacion> aRetornar = [];
+    for (var item in a) {
+      aRetornar.add(_ubicaciones[item]);
+    }
+    return aRetornar;
+  }
+
+  Widget customRow(String label, String result) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: kTextIconColor, fontSize: 18)),
-        Text(result, style: TextStyle(fontWeight: FontWeight.bold, color: kLightAccentColor, fontSize: 18),)
+        Text(label,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kTextIconColor,
+                fontSize: 18)),
+        Text(
+          result,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: kLightAccentColor,
+              fontSize: 18),
+        )
       ],
     );
   }

@@ -56,6 +56,7 @@ class SignUpWindow extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextField(
                         keyboardType: TextInputType.name,
+                        style: TextStyle(color: kPrimaryTextColor),
                         controller: nameTextController,
                         decoration: InputDecoration(
                           labelText: "Nombre",
@@ -70,6 +71,7 @@ class SignUpWindow extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextField(
                         controller: emailTextController,
+                        style: TextStyle(color: kPrimaryTextColor),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "E-Mail",
@@ -84,6 +86,7 @@ class SignUpWindow extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextField(
                       controller: passwordTextController,
+                      style: TextStyle(color: kPrimaryTextColor),
                       decoration: InputDecoration(
                           labelText: "Password",
                           labelStyle: TextStyle(color: kPrimaryTextColor)),
@@ -99,6 +102,7 @@ class SignUpWindow extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.phone,
                       controller: phoneTextController,
+                      style: TextStyle(color: kPrimaryTextColor),
                       decoration: InputDecoration(
                           labelText: "Telefono",
                           labelStyle: TextStyle(color: kPrimaryTextColor)),

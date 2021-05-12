@@ -66,12 +66,11 @@ class AuthService {
     String token = await AuthService.getToken();
     try {
       var res = await http.get(
-          Uri.parse('http://' + kApiBackendUrl + '/auth/user/' + token),
+          Uri.parse('http://' + kApiBackendUrl + '/api/user/' + token),
           headers: kApiHeader);
       var decodedAnswer = jsonDecode(res.body);
       print(decodedAnswer);
-      User temp = User.fromJson(decodedAnswer);
-      return temp;
+      return User.fromJson(decodedAnswer);
     } catch (e) {
       print(e);
     }

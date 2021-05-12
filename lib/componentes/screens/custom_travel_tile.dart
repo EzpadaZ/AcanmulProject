@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class TravelTile extends StatefulWidget {
   Ubicacion ubicacion;
   List<Ubicacion> selected = [];
+  bool _isAdded = false;
 
   TravelTile({this.ubicacion, this.selected});
 
@@ -12,7 +13,6 @@ class TravelTile extends StatefulWidget {
 }
 
 class _TravelTileState extends State<TravelTile> {
-  bool _isAdded = false;
   Icon added = Icon(
     Icons.check,
     color: Colors.green,
@@ -56,17 +56,17 @@ class _TravelTileState extends State<TravelTile> {
           ),
           Spacer(),
           IconButton(
-              icon: _isAdded ? added : not_added,
+              icon: widget._isAdded ? added : not_added,
               onPressed: () {
-                setState(() {
-                  _isAdded = !_isAdded;
-                });
-                if (_isAdded) {
+                widget._isAdded = !widget._isAdded;
+                if (widget._isAdded) {
                   widget.selected.add(widget.ubicacion);
                 } else {
                   widget.selected.remove(widget.ubicacion);
                 }
-                print(_isAdded);
+
+                //print(_isAdded);
+                print(widget._isAdded);
               })
         ],
       ),
