@@ -2,13 +2,6 @@
 
 Aplicacion Movil para el agendado de viajes con paquetes turisticos preestablecidos o personalizados.
 
-# Lista de cosas pendientes.
--   Pantalla de Contacto
--   Pantalla de Viaje Personalizado (Posible siguiente commit).
--   Funcionalidad para agendar viajes
--   Cosa extra (cambio de pwd, email, mejoras al sistema).
-
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
